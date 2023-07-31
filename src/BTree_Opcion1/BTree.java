@@ -15,6 +15,7 @@ import java.util.Queue;
 public class BTree<T extends Comparable<T>> implements IBTree{
     private final int maxKeySize;
     private final int maxChildrenSize;
+    private int size;
     private TreeNode<T> root = null;
 
     /**
@@ -27,6 +28,7 @@ public class BTree<T extends Comparable<T>> implements IBTree{
     public BTree(int order) {
         this.maxKeySize = order - 1;
         this.maxChildrenSize = order;
+        this.size = 0;
     }
 
     /**
@@ -47,6 +49,7 @@ public class BTree<T extends Comparable<T>> implements IBTree{
             initializeRootNode(value);
         else
             insertValueIntoTree(value, root);
+        size++;
     }
 
     /**
@@ -251,5 +254,9 @@ public class BTree<T extends Comparable<T>> implements IBTree{
             if (j != treeNode.getNumberOfKeys() - 1)
                 sb.append(", ");
         } sb.append("]");
+    }
+
+    public int getSize() {
+        return size;
     }
 }
