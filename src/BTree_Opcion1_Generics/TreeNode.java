@@ -1,4 +1,4 @@
-package BTree_Opcion1;
+package BTree_Opcion1_Generics;
 
 import java.util.Arrays;
 import java.util.Comparator;

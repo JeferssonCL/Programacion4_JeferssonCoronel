@@ -1,6 +1,6 @@
 package BTree;
 
-import BTree_Opcion1.BTree;
+import BTree_Opcion1_Generics.BTree;
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertEquals;

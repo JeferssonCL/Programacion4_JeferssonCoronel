@@ -15,8 +15,8 @@ public class Main {
         bTree.add(8);
         bTree.add(1);
         bTree.add(2);
-        bTree.add(17);
-        bTree.add(1);
+
+        System.out.println(bTree.getTreeNode(79));
 
         System.out.println(bTree);
     }

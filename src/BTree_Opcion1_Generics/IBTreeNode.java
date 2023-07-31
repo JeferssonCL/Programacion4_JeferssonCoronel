@@ -1,4 +1,4 @@
-package BTree_Opcion1;
+package BTree_Opcion1_Generics;
 
 public interface IBTreeNode<T extends Comparable<T>> {
 
