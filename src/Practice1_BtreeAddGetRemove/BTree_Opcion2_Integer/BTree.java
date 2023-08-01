@@ -1,4 +1,4 @@
-package BTree_Opcion2_Integer;
+package Practice1_BtreeAddGetRemove.BTree_Opcion2_Integer;
 
 /**
  * A B-tree implementation that supports insertion of integer keys.
