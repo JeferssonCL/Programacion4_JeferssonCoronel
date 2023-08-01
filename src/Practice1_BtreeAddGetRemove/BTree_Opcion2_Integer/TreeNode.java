@@ -1,4 +1,4 @@
-package BTree_Opcion2;
+package BTree_Opcion2_Integer;
 
 import java.util.*;
 import java.util.stream.Collectors;

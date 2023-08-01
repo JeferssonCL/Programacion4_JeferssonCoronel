@@ -1,4 +1,4 @@
-package BTree_Opcion2;
+package BTree_Opcion2_Integer;
 
 public class Main {
     public static void main(String[] args) {
