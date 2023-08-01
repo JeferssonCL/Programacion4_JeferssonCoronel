@@ -132,4 +132,50 @@ public class BTreeMethodAdd {
         bTree.add(100000);
         assertEquals("[100, 1000, 10000, 100000]\n", bTree.toString());
     }
+
+    @Test
+    public void testBTreeWith1Level() {
+        bTree = new BTree<>(4);
+        bTree.add(7);
+        bTree.add(12);
+        bTree.add(15);
+
+        assertEquals(bTree.getLevels().size(), 1);
+    }
+
+    @Test
+    public void testBTreeWith2Levels() {
+        bTree = new BTree<>(4);
+        bTree.add(7);
+        bTree.add(12);
+        bTree.add(15);
+        bTree.add(50);
+        bTree.add(22);
+        bTree.add(46);
+
+        assertEquals(bTree.getLevels().size(), 2);
+    }
+
+    @Test
+    public void testBTreeWith3Levels() {
+        bTree = new BTree<>(4);
+        bTree.add(7);
+        bTree.add(12);
+        bTree.add(15);
+        bTree.add(50);
+        bTree.add(22);
+        bTree.add(46);
+        bTree.add(23);
+        bTree.add(39);
+        bTree.add(26);
+        bTree.add(8);
+        bTree.add(1);
+        bTree.add(2);
+        bTree.add(18);
+        bTree.add(78);
+        bTree.add(32);
+        bTree.add(29);
+
+        assertEquals(bTree.getLevels().size(), 3);
+    }
 }

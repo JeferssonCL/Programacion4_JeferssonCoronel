@@ -22,6 +22,7 @@ public class Main {
         bTree.add(29);
 
         System.out.println(bTree);
+        System.out.println(bTree.getLevels().size());
         bTree.remove(18);
         System.out.println(bTree);
     }

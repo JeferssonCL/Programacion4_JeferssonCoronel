@@ -1,6 +1,8 @@
 package Practice1_BtreeAddGetRemove.BTree_Opcion1_Generics;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -19,6 +21,38 @@ public class BTree<T extends Comparable<T>> implements IBTree {
         this.minKeySize = order / 2;
         this.maxKeySize = order - 1;
         this.maxChildrenSize = order;
+    }
+
+    /**
+     * Returns a list of lists containing the levels of the B-tree.
+     *
+     * @return A list of lists containing the levels of the B-tree.
+     */
+    public List<List<T>> getLevels() {
+        if (root == null)
+            return new ArrayList<>();
+
+        List<List<T>> levels = new ArrayList<>();
+        Queue<TreeNode<T>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            List<T> currentLevel = new ArrayList<>();
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode<T> currentTreeNode = queue.poll();
+                for (int j = 0; j < currentTreeNode.numberOfKeys(); j++)
+                    currentLevel.add(currentTreeNode.getKey(j));
+
+                if (currentTreeNode.numberOfChildren() > 0) {
+                    for (int j = 0; j <= currentTreeNode.numberOfChildren(); j++) {
+                        TreeNode<T> child = currentTreeNode.getChild(j);
+                        if (child != null) queue.offer(child);
+                    }
+                }
+            } levels.add(currentLevel);
+        } return levels;
     }
 
     /**
