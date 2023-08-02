@@ -1,6 +1,6 @@
-package Practice1_BtreeAddGetRemove.BTree_Opcion1;
+package Practice3_BtreeAddGetRemove.BTree_Opcion1;
 
-import Practice1_BtreeAddGetRemove.BTree_Opcion1_Generics.BTree;
+import Practice3_BtreeAddGetRemove.BTree_Opcion1_Generics.BTree;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.assertEquals;
 
