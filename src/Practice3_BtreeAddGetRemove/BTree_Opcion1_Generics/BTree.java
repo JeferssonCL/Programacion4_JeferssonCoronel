@@ -63,7 +63,7 @@ public class BTree<T extends Comparable<T>> implements IBTree {
      */
     public void add(Object key) {
         T value = (T) key;
-        if (searchNode(value) != null)
+        if (getTreeNode(value) != null)
             return; // Value already exists, no need to add again.
 
         if (root == null) {
@@ -173,7 +173,7 @@ public class BTree<T extends Comparable<T>> implements IBTree {
      * @param value The value to search for in the B-tree.
      * @return The node containing the value if found; otherwise, null.
      */
-    private TreeNode<T> searchNode(T value) {
+    public TreeNode<T> getTreeNode(T value) {
         TreeNode<T> treeNode = root;
         while (treeNode != null) {
             T lesser = treeNode.getKey(0);
@@ -444,7 +444,7 @@ public class BTree<T extends Comparable<T>> implements IBTree {
     public T remove(Object key) {
         T value = (T) key;
         T removed = null;
-        TreeNode<T> treeNode = this.searchNode(value);
+        TreeNode<T> treeNode = this.getTreeNode(value);
         removed = remove(value, treeNode);
         return removed;
     }
