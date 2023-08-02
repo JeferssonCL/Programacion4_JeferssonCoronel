@@ -4,8 +4,73 @@
 
 ### Crear los siguientes arboles Heaps representados gráficamente uno después del insert de todos los valores yotro después de la eliminación
 
-#### Ejercicios
+### Ejercicios:
 
+**1)**
+
+**Tipo:** min heap
+
+**Insertar:** 1,2,50,3,80,51,70,4, -10
+
+**Eliminar:** -10
+
+**2)**
+
+**Tipo:** max heap
+
+**Insertar:** 7,6,1,5,10,5,3,2.8
+
+**Eliminar:** 10
+
+**3)**
+
+**Tipo:** min heap
+
+**Insertar:** 3, 1,2,80,51,70, -10,50,4
+
+**Eliminar:** 80, 70, 50
+
+**4)**
+
+**Tipo:** max heap
+
+**Insertar:** 3, 1,2,80,51,70, -10,50,4
+
+**Eliminar:** 1, 2, 4, 3
+
+**5)**
+
+**Tipo:** min heap
+
+**Insertar:** 7,6,1,5,10,5,3,2.8
+
+**Eliminar:** 6,1,8
+
+**6)**
+
+**Tipo:** max heap
+
+**Insertar:** 2,8,5, 7,6, 10,1,5,3,5, 0, 9
+
+**Eliminar:** 1,10, 3, 9
+
+**7)**
+
+**Tipo:** min heap
+
+**Insertar:** 15, 10, 8, 12, 7, 6, 9,-60,80,9
+
+**Eliminar:** 15, 7, 9
+
+**8)**
+
+**Tipo:** max heap
+
+**Insertar:** 500, 10, 62, 74, 10,-6, 9,-60,-80, 8
+
+**Eliminar:** 74,-60, 500
+
+### Resolucion:
 
 ![Image1](https://i.ibb.co/DRT1SJT/Image1.jpg)
 
