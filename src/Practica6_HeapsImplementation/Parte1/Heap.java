@@ -223,6 +223,39 @@ public class Heap {
     }
 
     /**
+     * Returns the root node value (minimum or maximum depending on the heap type)
+     * without removing it from the heap.
+     *
+     * @return The root node value.
+     * @throws IllegalStateException if the heap is empty.
+     */
+    public int peek() {
+        if (size == 0)
+            throw new IllegalStateException("Heap is empty.");
+
+        return heap[0];
+    }
+
+    /**
+     * Removes and returns the root node value (minimum or maximum depending on the heap type) from the heap.
+     *
+     * @return The root node value.
+     * @throws IllegalStateException if the heap is empty.
+     */
+    public int poll() {
+        if (size == 0)
+            throw new IllegalStateException("Heap is empty.");
+
+        int rootValue = heap[0];
+        heap[0] = heap[size - 1];
+        size--;
+
+        reOrderDown(0, isMinHeap);
+
+        return rootValue;
+    }
+
+    /**
      * Returns a string representation of the Heap. The string displays the elements of the heap
      * arranged in a level-order traversal.
      *
