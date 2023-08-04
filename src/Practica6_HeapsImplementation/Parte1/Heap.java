@@ -28,6 +28,15 @@ public class Heap {
     }
 
     /**
+     * This method is used to get the array which is used to simulate the heap
+     *
+     * @return the array
+     */
+    public int[] getHeap() {
+        return heap;
+    }
+
+    /**
      * Inserts a new value into the heap.
      *
      * @param value The value to be inserted.
@@ -197,6 +206,20 @@ public class Heap {
     private void addRightChildToQueue(Queue<Integer> queue, int index) {
         int rightChildIndex = rightChild(index);
         if (rightChildIndex < size) queue.offer(rightChildIndex);
+    }
+
+    /**
+     * Returns the value of the node at the specified index in the heap.
+     *
+     * @param index The index of the node to retrieve.
+     * @return The value of the node at the specified index.
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
+     */
+    public int get(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("Index out of range.");
+
+        return heap[index];
     }
 
     /**
