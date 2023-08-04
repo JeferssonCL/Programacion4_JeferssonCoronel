@@ -1,4 +1,4 @@
-package Practica6_HeapsImplementation;
+package Practica6_HeapsImplementation.Parte1;
 
 public class Main {
 

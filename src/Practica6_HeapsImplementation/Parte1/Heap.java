@@ -1,8 +1,7 @@
-package Practica6_HeapsImplementation;
+package Practica6_HeapsImplementation.Parte1;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
 
 /**
  * The Heap class represents a binary heap data structure. It can be used as either
