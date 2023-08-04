@@ -3,12 +3,6 @@ package Practica6_HeapsImplementation;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
-/**
- * The Heap class represents a binary heap data structure. It can be used as either
- * a MinHeap or a MaxHeap based on the value of the isMinHeap parameter provided
- * during initialization.
- */
 public class Heap {
     private final int[] heap;
     private int size;
@@ -22,6 +16,7 @@ public class Heap {
         this.heap = new int[capacity];
         this.isMinHeap = isMinHeap;
     }
+
 
     public void insert(int value) {
         if (size == capacity)
@@ -51,12 +46,14 @@ public class Heap {
     }
 
 
-    /**
-     * Swaps the elements at the specified indices in the heap array.
-     *
-     * @param i The index of the first element to be swapped.
-     * @param j The index of the second element to be swapped.
-     */
+    public int search(int value) {
+        for (int i = 0; i < size; i++) {
+            if (heap[i] == value)
+                return i;
+        } return -1;
+    }
+
+
     private void swap(int i, int j) {
         int temp = heap[i];
         heap[i] = heap[j];
@@ -78,6 +75,7 @@ public class Heap {
         int leftChildIndex = leftChild(index);
         if (leftChildIndex < size) queue.offer(leftChildIndex);
     }
+
 
     private void addRightChildToQueue(Queue<Integer> queue, int index) {
         int rightChildIndex = rightChild(index);
