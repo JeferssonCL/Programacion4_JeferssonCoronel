@@ -8,7 +8,7 @@ import java.util.Queue;
  * a MinHeap or a MaxHeap based on the value of the isMinHeap parameter provided
  * during initialization.
  */
-public class Heap {
+public class Heap implements IHeap{
     private final int[] heap;
     private int size;
     private final int capacity;
