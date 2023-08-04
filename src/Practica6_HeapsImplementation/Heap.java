@@ -15,12 +15,7 @@ public class Heap {
     private final int capacity;
     private final boolean isMinHeap;
 
-    /**
-     * Creates a new Heap with the given capacity and heap type.
-     *
-     * @param capacity   The maximum number of elements that the heap can hold.
-     * @param isMinHeap  If true, the heap will be a MinHeap; if false, it will be a MaxHeap.
-     */
+
     public Heap(int capacity, boolean isMinHeap) {
         this.capacity = capacity;
         this.size = 0;
@@ -28,12 +23,6 @@ public class Heap {
         this.isMinHeap = isMinHeap;
     }
 
-    /**
-     * Inserts a new value into the heap.
-     *
-     * @param value The value to be inserted.
-     * @throws IllegalStateException if the heap is full and cannot insert more elements.
-     */
     public void insert(int value) {
         if (size == capacity)
             throw new IllegalStateException("Heap is full, cannot insert.");
@@ -60,10 +49,63 @@ public class Heap {
             } else break;
         }
     }
+
+
+    /**
+     * Swaps the elements at the specified indices in the heap array.
+     *
+     * @param i The index of the first element to be swapped.
+     * @param j The index of the second element to be swapped.
+     */
     private void swap(int i, int j) {
         int temp = heap[i];
         heap[i] = heap[j];
         heap[j] = temp;
+    }
+
+
+    private int leftChild(int index) {
+        return 2 * index + 1;
+    }
+
+
+    private int rightChild(int index) {
+        return 2 * index + 2;
+    }
+
+
+    private void addLeftChildToQueue(Queue<Integer> queue, int index) {
+        int leftChildIndex = leftChild(index);
+        if (leftChildIndex < size) queue.offer(leftChildIndex);
+    }
+
+    private void addRightChildToQueue(Queue<Integer> queue, int index) {
+        int rightChildIndex = rightChild(index);
+        if (rightChildIndex < size) queue.offer(rightChildIndex);
+    }
+
+    @Override
+    public String toString() {
+        if (size == 0) return isMinHeap ? "MinHeap is empty." : "MaxHeap is empty.";
+
+        StringBuilder sb = new StringBuilder();
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(0);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            StringBuilder levelSb = new StringBuilder();
+
+            for (int i = 0; i < levelSize; i++) {
+                int index = queue.poll();
+                levelSb.append("[").append(heap[index]).append("]");
+
+                addLeftChildToQueue(queue, index);
+                addRightChildToQueue(queue, index);
+            }
+            sb.append(levelSb);
+            sb.append("\n");
+        } return sb.toString();
     }
 }
 
