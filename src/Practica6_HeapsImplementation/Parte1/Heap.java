@@ -17,7 +17,6 @@ public class Heap implements IHeap{
     /**
      * Creates a new Heap with the given capacity and heap type.
      *
-     * @param capacity   The maximum number of elements that the heap can hold.
      * @param isMinHeap  If true, the heap will be a MinHeap; if false, it will be a MaxHeap.
      */
     public Heap(boolean isMinHeap) {
@@ -49,7 +48,6 @@ public class Heap implements IHeap{
             System.arraycopy(heap, 0, newHeap, 0, size);
             heap = newHeap;
         }
-
         heap[size] = value;
         size++;
 
