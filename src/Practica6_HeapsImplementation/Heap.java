@@ -46,6 +46,52 @@ public class Heap {
     }
 
 
+    public void remove(int value) {
+        int indexToRemove = search(value);
+        if (indexToRemove == -1)
+            return;
+
+        heap[indexToRemove] = heap[size - 1];
+        size--;
+
+        reOrderDown(indexToRemove, isMinHeap);
+    }
+
+    private void reOrderDown(int index, boolean isMinHeap) {
+        int currentIdx = index;
+
+        while (true) {
+            int childIdx;
+            if (isMinHeap) childIdx = findChild(currentIdx, false);
+            else childIdx = findChild(currentIdx, true);
+
+            if (childIdx != currentIdx) {
+                swap(currentIdx, childIdx);
+                currentIdx = childIdx;
+            } else break;
+        }
+    }
+
+    private int findChild(int index, boolean findLargest) {
+        int leftChildIdx = leftChild(index);
+        int rightChildIdx = rightChild(index);
+        int targetIdx = index;
+
+        if (findLargest) {
+            if (leftChildIdx < size && heap[leftChildIdx] > heap[targetIdx])
+                targetIdx = leftChildIdx;
+
+            if (rightChildIdx < size && heap[rightChildIdx] > heap[targetIdx])
+                targetIdx = rightChildIdx;
+        } else {
+            if (leftChildIdx < size && heap[leftChildIdx] < heap[targetIdx])
+                targetIdx = leftChildIdx;
+
+            if (rightChildIdx < size && heap[rightChildIdx] < heap[targetIdx])
+                targetIdx = rightChildIdx;
+        } return targetIdx;
+    }
+
     public int search(int value) {
         for (int i = 0; i < size; i++) {
             if (heap[i] == value)
@@ -53,30 +99,25 @@ public class Heap {
         } return -1;
     }
 
-
     private void swap(int i, int j) {
         int temp = heap[i];
         heap[i] = heap[j];
         heap[j] = temp;
     }
 
-
     private int leftChild(int index) {
         return 2 * index + 1;
     }
-
 
     private int rightChild(int index) {
         return 2 * index + 2;
     }
 
-
     private void addLeftChildToQueue(Queue<Integer> queue, int index) {
         int leftChildIndex = leftChild(index);
         if (leftChildIndex < size) queue.offer(leftChildIndex);
     }
-
-
+    
     private void addRightChildToQueue(Queue<Integer> queue, int index) {
         int rightChildIndex = rightChild(index);
         if (rightChildIndex < size) queue.offer(rightChildIndex);
