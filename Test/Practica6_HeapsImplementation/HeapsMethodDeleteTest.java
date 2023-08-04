@@ -9,7 +9,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveElementExistsInMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(8);
@@ -23,7 +23,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveRootElementFromMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(8);
@@ -35,7 +35,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveLastElementFromMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         assertEquals("[5]\n", minHeap.toString());
 
@@ -46,7 +46,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveElementNotPresentInMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(8);
@@ -58,7 +58,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveElementExistsInMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(5);
         maxHeap.insert(3);
         maxHeap.insert(8);
@@ -72,7 +72,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveRootElementFromMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(5);
         maxHeap.insert(3);
         maxHeap.insert(8);
@@ -84,7 +84,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveLastElementFromMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(5);
         assertEquals("[5]\n", maxHeap.toString());
 
@@ -94,7 +94,7 @@ public class HeapsMethodDeleteTest {
 
     @Test
     public void testRemoveElementNotPresentInMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(5);
         maxHeap.insert(3);
         maxHeap.insert(8);

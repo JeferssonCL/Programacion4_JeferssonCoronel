@@ -9,9 +9,9 @@ import java.util.Queue;
  * during initialization.
  */
 public class Heap implements IHeap{
-    private final int[] heap;
+    private int[] heap;
     private int size;
-    private final int capacity;
+    private int capacity;
     private final boolean isMinHeap;
 
     /**
@@ -20,8 +20,8 @@ public class Heap implements IHeap{
      * @param capacity   The maximum number of elements that the heap can hold.
      * @param isMinHeap  If true, the heap will be a MinHeap; if false, it will be a MaxHeap.
      */
-    public Heap(int capacity, boolean isMinHeap) {
-        this.capacity = capacity;
+    public Heap(boolean isMinHeap) {
+        this.capacity = 10;
         this.size = 0;
         this.heap = new int[capacity];
         this.isMinHeap = isMinHeap;
@@ -43,8 +43,12 @@ public class Heap implements IHeap{
      * @throws IllegalStateException if the heap is full and cannot insert more elements.
      */
     public void insert(int value) {
-        if (size == capacity)
-            throw new IllegalStateException("Heap is full, cannot insert.");
+        if (size == capacity) {
+            capacity *= 2;
+            int[] newHeap = new int[capacity];
+            System.arraycopy(heap, 0, newHeap, 0, size);
+            heap = newHeap;
+        }
 
         heap[size] = value;
         size++;

@@ -11,7 +11,7 @@ public class HeapsMethodGetAndSearchTest {
 
     @Test
     public void testSearchInMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(8);
@@ -30,7 +30,7 @@ public class HeapsMethodGetAndSearchTest {
 
     @Test
     public void testSearchExistingElement() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(50);
         maxHeap.insert(30);
         maxHeap.insert(70);
@@ -43,7 +43,7 @@ public class HeapsMethodGetAndSearchTest {
 
     @Test
     public void testSearchNonExistingElement() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(10);
         minHeap.insert(20);
         minHeap.insert(30);
@@ -55,7 +55,7 @@ public class HeapsMethodGetAndSearchTest {
 
     @Test
     public void testSearchDuplicateElements() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(30);
         maxHeap.insert(70);
         maxHeap.insert(50);
@@ -68,7 +68,7 @@ public class HeapsMethodGetAndSearchTest {
 
     @Test
     public void testSearchInMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(10);
         maxHeap.insert(7);
         maxHeap.insert(12);
@@ -93,13 +93,13 @@ public class HeapsMethodGetAndSearchTest {
 
     @Test
     public void testSearchEmptyHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         assertEquals(-1, minHeap.search(5)); // Empty heap
     }
 
     @Test
     public void testSearchForDuplicateValues() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(5);

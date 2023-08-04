@@ -9,7 +9,7 @@ public class HeapsMethodPollTest {
 
     @Test
     public void testPollInMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(8);
@@ -25,7 +25,7 @@ public class HeapsMethodPollTest {
 
     @Test
     public void testPollInMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(10);
         maxHeap.insert(7);
         maxHeap.insert(12);
@@ -41,13 +41,13 @@ public class HeapsMethodPollTest {
 
     @Test(expectedExceptions = IllegalStateException.class)
     public void testPollEmptyHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.poll(); // Should throw an exception as the heap is empty.
     }
 
     @Test
     public void testPollDuplicateValues() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(5);

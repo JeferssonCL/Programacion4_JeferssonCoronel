@@ -3,7 +3,7 @@ package Practica6_HeapsImplementation.Parte1;
 public class Main {
 
     public static void main(String[] args) {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
 
         maxHeap.insert(500);
         maxHeap.insert(10);
@@ -24,10 +24,6 @@ public class Main {
         System.out.println();
         System.out.println();
         maxHeap.remove(-60);
-        System.out.println(maxHeap);
-        System.out.println();
-        System.out.println();
-        maxHeap.remove(500);
         System.out.println(maxHeap);
         System.out.println();
         System.out.println();

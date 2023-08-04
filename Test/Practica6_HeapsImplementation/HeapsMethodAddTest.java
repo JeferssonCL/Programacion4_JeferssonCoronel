@@ -9,7 +9,7 @@ public class HeapsMethodAddTest {
 
     @Test
     public void testInsertToMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
 
         minHeap.insert(5);
         minHeap.insert(3);
@@ -22,7 +22,7 @@ public class HeapsMethodAddTest {
 
     @Test
     public void testInsertToMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
 
         maxHeap.insert(10);
         maxHeap.insert(7);
@@ -35,7 +35,7 @@ public class HeapsMethodAddTest {
 
     @Test
     public void testInsertDuplicateValues() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
 
         minHeap.insert(5);
         minHeap.insert(3);
@@ -47,7 +47,7 @@ public class HeapsMethodAddTest {
 
     @Test
     public void testInsertSingleValue() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
 
         maxHeap.insert(10);
 

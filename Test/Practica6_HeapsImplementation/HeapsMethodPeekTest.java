@@ -9,7 +9,7 @@ public class HeapsMethodPeekTest {
 
     @Test
     public void testPeekInMinHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(8);
@@ -21,7 +21,7 @@ public class HeapsMethodPeekTest {
 
     @Test
     public void testPeekInMaxHeap() {
-        Heap maxHeap = new Heap(10, false);
+        Heap maxHeap = new Heap(false);
         maxHeap.insert(10);
         maxHeap.insert(7);
         maxHeap.insert(12);
@@ -33,13 +33,13 @@ public class HeapsMethodPeekTest {
 
     @Test(expectedExceptions = IllegalStateException.class)
     public void testPeekEmptyHeap() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.peek(); // Should throw an exception as the heap is empty.
     }
 
     @Test
     public void testPeekDuplicateValues() {
-        Heap minHeap = new Heap(10, true);
+        Heap minHeap = new Heap(true);
         minHeap.insert(5);
         minHeap.insert(3);
         minHeap.insert(5);
