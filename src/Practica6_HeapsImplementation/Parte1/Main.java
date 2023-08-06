@@ -1,0 +1,55 @@
+package Practica6_HeapsImplementation.Parte1;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Heap maxHeap = new Heap(false);
+
+        maxHeap.insert(500);
+        maxHeap.insert(10);
+        maxHeap.insert(62);
+        maxHeap.insert(74);
+        maxHeap.insert(10);
+        maxHeap.insert(-6);
+        maxHeap.insert(9);
+        maxHeap.insert(-60);
+        maxHeap.insert(-80);
+        maxHeap.insert(8);
+
+        System.out.println(maxHeap);
+        System.out.println();
+        System.out.println();
+        maxHeap.remove(74);
+        System.out.println(maxHeap);
+        System.out.println();
+        System.out.println();
+        maxHeap.remove(-60);
+        System.out.println(maxHeap);
+        System.out.println();
+        System.out.println();
+
+        maxHeap = new Heap(false);
+
+        maxHeap.insert(1);
+        maxHeap.insert(2);
+        maxHeap.insert(3);
+        maxHeap.insert(4);
+        maxHeap.insert(-10);
+        maxHeap.insert(5);
+        maxHeap.insert(6);
+        maxHeap.insert(-9);
+        System.out.println(maxHeap);
+
+        maxHeap = new Heap(true);
+
+        maxHeap.insert(1);
+        maxHeap.insert(2);
+        maxHeap.insert(3);
+        maxHeap.insert(4);
+        maxHeap.insert(-10);
+        maxHeap.insert(5);
+        maxHeap.insert(6);
+        maxHeap.insert(-9);
+        System.out.println(maxHeap);
+    }
+}
