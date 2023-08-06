@@ -1,5 +1,6 @@
 package Practica6_HeapsImplementation.Parte1;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -236,6 +237,16 @@ public class Heap implements IHeap{
             throw new IllegalStateException("Heap is empty.");
 
         return heap[0];
+    }
+
+    /**
+     * This method is used to get the quantity of elements in heaps.
+     *
+     * @return the elements of heaps.
+     */
+    @Override
+    public int size() {
+        return (int) Arrays.stream(heap).filter(element -> element != 0).count();
     }
 
     /**

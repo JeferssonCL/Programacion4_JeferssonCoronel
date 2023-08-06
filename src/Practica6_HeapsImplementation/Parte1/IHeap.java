@@ -8,6 +8,13 @@ package Practica6_HeapsImplementation.Parte1;
 public interface IHeap {
 
     /**
+     * This method is used to get the quantity of elements in heaps.
+     *
+     * @return the elements of heaps.
+     */
+    int size();
+
+    /**
      * Removes and returns the top element from the heap, maintaining the heap property.
      *
      * @return The top element of the heap.

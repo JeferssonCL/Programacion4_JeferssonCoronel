@@ -3,13 +3,15 @@ package Practica6_HeapsImplementation;
 import Practica6_HeapsImplementation.Parte1.Heap;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 import static org.testng.AssertJUnit.assertEquals;
 
 public class HeapsMethodAddTest {
 
     @Test
     public void testInsertToMinHeap() {
-        Heap minHeap = new Heap(true);
+        Heap minHeap = new Heap( true);
 
         minHeap.insert(5);
         minHeap.insert(3);
