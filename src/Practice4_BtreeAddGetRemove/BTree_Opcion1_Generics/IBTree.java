@@ -1,4 +1,4 @@
-package Practice3_BtreeAddGetRemove.BTree_Opcion1_Generics;
+package Practice4_BtreeAddGetRemove.BTree_Opcion1_Generics;
 
 public interface IBTree<T> {
     void add(T value);

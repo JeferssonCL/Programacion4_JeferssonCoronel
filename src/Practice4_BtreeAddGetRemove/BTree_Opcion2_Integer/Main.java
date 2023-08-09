@@ -1,4 +1,4 @@
-package Practice3_BtreeAddGetRemove.BTree_Opcion2_Integer;
+package Practice4_BtreeAddGetRemove.BTree_Opcion2_Integer;
 
 public class Main {
     public static void main(String[] args) {
