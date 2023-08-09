@@ -41,5 +41,11 @@ public class Main {
         bankTicketsManager.addNewCustomerToQueue(false);
 
         System.out.println(bankTicketsManager.getRoot());
+
+        System.out.println(bankTicketsManager.serveOneCustomer() + "\n");
+
+        System.out.println(bankTicketsManager.getRoot());
+
+        System.out.println(bankTicketsManager.serveAllCustomer());
     }
 }

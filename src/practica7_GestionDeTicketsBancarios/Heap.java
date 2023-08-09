@@ -278,7 +278,7 @@ public class Heap<T extends Comparable<T>> implements IHeap<T> {
      */
     @Override
     public int size() {
-        return (int) Arrays.stream(heap).filter(Objects::nonNull).count();
+        return size;
     }
 
     /**
@@ -296,7 +296,6 @@ public class Heap<T extends Comparable<T>> implements IHeap<T> {
         size--;
 
         reOrderDown(0, isMinHeap);
-
         return rootValue;
     }
 

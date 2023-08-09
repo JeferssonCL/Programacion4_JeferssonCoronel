@@ -50,6 +50,20 @@ public class BankTicketsManager {
         } else root.insert(newTicket);
     }
 
+    public String serveOneCustomer() {
+        return "Processing: " + root.poll();
+    }
+
+    public String serveAllCustomer() {
+        StringBuilder sb = new StringBuilder();
+
+        while (root.size() != 0) {
+            Ticket ticket = root.poll();
+            sb.append("Processing: ").append(ticket).append("\n");
+        } return sb.toString();
+    }
+
+
     /**
      * Gets the root heap that holds the tickets in the manager.
      *
