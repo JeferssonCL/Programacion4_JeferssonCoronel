@@ -44,9 +44,11 @@ public class BankTicketsManager {
 
         if (isPriorityCustomer && root.size() > 0) {
             int lastPriorityIndex = findLastPriorityCustomer();
-            root.moveElementToRight(lastPriorityIndex);
+            Ticket previousTicket = root.removeByIndex(lastPriorityIndex);
+            previousTicket.setNumberInQueue(lastPriorityIndex + 1);
             newTicket.setNumberInQueue(lastPriorityIndex);
-            root.updateValueAtIndex(lastPriorityIndex, newTicket);
+            root.insert(newTicket);
+            root.insert(previousTicket);
         } else root.insert(newTicket);
     }
 
@@ -101,5 +103,21 @@ public class BankTicketsManager {
         for (int i = 0; i < root.size(); i++) {
             if (root.get(i) != null && !root.get(i).isPriorityCustomer()) return i;
         } return 0;
+    }
+
+    public String simulateBankAttention() {
+        Heap<Ticket> copyHeap = new Heap<>(true);
+
+        for (int i = 0; i < root.size(); i++) copyHeap.insert(root.get(i));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Init Bank Attention:\n");
+
+        while (copyHeap.size() > 0) {
+            Ticket currentTicket = copyHeap.poll();
+            sb.append("Now serving: ").append(currentTicket.getCode()).append("\n");
+            if (copyHeap.size() > 0) sb.append("Next in line: ").append(copyHeap.peek().getCode()).append("\n");
+            sb.append("-".repeat(60)).append("\n");
+        } return sb.toString();
     }
 }

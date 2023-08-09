@@ -25,27 +25,12 @@ public class Main {
 
         System.out.println(bankTicketsManager.getRoot());
 
-        bankTicketsManager.addNewCustomerToQueue(false);
-        bankTicketsManager.addNewCustomerToQueue(false);
-        bankTicketsManager.addNewCustomerToQueue(false);
-        bankTicketsManager.addNewCustomerToQueue(false);
-        bankTicketsManager.addNewCustomerToQueue(false);
-
-        System.out.println(bankTicketsManager.getRoot());
-
-
-        bankTicketsManager.addNewCustomerToQueue(true);
-        bankTicketsManager.addNewCustomerToQueue(true);
-        bankTicketsManager.addNewCustomerToQueue(true);
-        bankTicketsManager.addNewCustomerToQueue(true);
-        bankTicketsManager.addNewCustomerToQueue(false);
-
         System.out.println(bankTicketsManager.getRoot());
 
         System.out.println(bankTicketsManager.serveOneCustomer() + "\n");
 
         System.out.println(bankTicketsManager.getRoot());
 
-        System.out.println(bankTicketsManager.serveAllCustomer());
+        System.out.println(bankTicketsManager.simulateBankAttention());
     }
 }

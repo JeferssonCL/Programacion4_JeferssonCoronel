@@ -15,7 +15,7 @@ public class BankTicketsManagerAddCustomerTest {
         bankBCB.addNewCustomerToQueue(true);
 
         assertEquals(1, bankBCB.getNumberOfCustomersInQueue());
-        assertEquals("[PTC - 1 [1]]\n", bankBCB.getRoot().toString());
+        assertEquals("[PTC - 1]\n", bankBCB.getRoot().toString());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class BankTicketsManagerAddCustomerTest {
         bankBCB.addNewCustomerToQueue(false);
 
         assertEquals(1, bankBCB.getNumberOfCustomersInQueue());
-        assertEquals("[NTC - 1 [1]]\n", bankBCB.getRoot().toString());
+        assertEquals("[NTC - 1]\n", bankBCB.getRoot().toString());
     }
 
     @Test
@@ -37,11 +37,11 @@ public class BankTicketsManagerAddCustomerTest {
 
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 20);
         assertEquals("""
-                [NTC - 1 [1]]
-                [NTC - 2 [2]][NTC - 3 [3]]
-                [NTC - 4 [4]][NTC - 5 [5]][NTC - 6 [6]][NTC - 7 [7]]
-                [NTC - 8 [8]][NTC - 9 [9]][NTC - 10 [10]][NTC - 11 [11]][NTC - 12 [12]][NTC - 13 [13]][NTC - 14 [14]][NTC - 15 [15]]
-                [NTC - 16 [16]][NTC - 17 [17]][NTC - 18 [18]][NTC - 19 [19]][NTC - 20 [20]]
+                [NTC - 1]
+                [NTC - 2][NTC - 3]
+                [NTC - 4][NTC - 5][NTC - 6][NTC - 7]
+                [NTC - 8][NTC - 9][NTC - 10][NTC - 11][NTC - 12][NTC - 13][NTC - 14][NTC - 15]
+                [NTC - 16][NTC - 17][NTC - 18][NTC - 19][NTC - 20]
                 """, bankBCB.getRoot().toString());
     }
 
@@ -54,10 +54,10 @@ public class BankTicketsManagerAddCustomerTest {
 
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 15);
         assertEquals("""
-                [PTC - 15 [0]]
-                [PTC - 14 [0]][PTC - 13 [0]]
-                [PTC - 12 [0]][PTC - 11 [0]][PTC - 10 [0]][PTC - 9 [0]]
-                [PTC - 8 [0]][PTC - 7 [0]][PTC - 6 [0]][PTC - 5 [0]][PTC - 4 [0]][PTC - 3 [0]][PTC - 2 [0]][PTC - 1 [1]]
+                [PTC - 15]
+                [PTC - 10][PTC - 13]
+                [PTC - 7][PTC - 9][PTC - 11][PTC - 12]
+                [PTC - 1][PTC - 4][PTC - 3][PTC - 8][PTC - 2][PTC - 6][PTC - 5][PTC - 14]
                 """, bankBCB.getRoot().toString());
     }
 
@@ -70,8 +70,8 @@ public class BankTicketsManagerAddCustomerTest {
 
         assertEquals(2, bankBCB.getNumberOfCustomersInQueue());
         assertEquals("""
-                [PTC - 1 [1]]
-                [NTC - 2 [2]]
+                [PTC - 1]
+                [NTC - 2]
                 """, bankBCB.getRoot().toString());
     }
 
@@ -85,10 +85,10 @@ public class BankTicketsManagerAddCustomerTest {
 
         assertEquals(10, bankBCB.getNumberOfCustomersInQueue());
         assertEquals("""
-                [PTC - 1 [1]]
-                [PTC - 3 [1]][PTC - 5 [2]]
-                [PTC - 7 [3]][PTC - 9 [4]][NTC - 2 [2]][NTC - 4 [4]]
-                [NTC - 6 [6]][NTC - 8 [8]][NTC - 10 [10]]
+                [PTC - 1]
+                [PTC - 3][PTC - 7]
+                [PTC - 5][NTC - 8][NTC - 6][NTC - 4]
+                [PTC - 9][NTC - 2][NTC - 10]
                 """, bankBCB.getRoot().toString());
     }
 
@@ -104,11 +104,11 @@ public class BankTicketsManagerAddCustomerTest {
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 20);
 
         assertEquals("""
-                [PTC - 1 [1]]
-                [PTC - 3 [1]][PTC - 5 [2]]
-                [PTC - 7 [3]][PTC - 9 [4]][PTC - 11 [5]][PTC - 13 [6]]
-                [PTC - 15 [7]][PTC - 17 [8]][PTC - 19 [9]][NTC - 2 [2]][NTC - 4 [4]][NTC - 6 [6]][NTC - 8 [8]][NTC - 10 [10]]
-                [NTC - 12 [12]][NTC - 14 [14]][NTC - 16 [16]][NTC - 18 [18]][NTC - 20 [20]]
+                [PTC - 1]
+                [PTC - 3][PTC - 7]
+                [PTC - 5][PTC - 11][PTC - 13][PTC - 15]
+                [PTC - 9][PTC - 19][NTC - 10][NTC - 8][NTC - 12][NTC - 6][NTC - 14][NTC - 4]
+                [PTC - 17][NTC - 2][NTC - 18][NTC - 16][NTC - 20]
                 """, bankBCB.getRoot().toString());
     }
 }

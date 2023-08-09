@@ -45,7 +45,7 @@ public class BankTicketsManagerAttendOrDeleteCustomerTest {
 
         String processingMessage = bankBCB.serveOneCustomer();
         assertTrue(processingMessage.startsWith("Processing: PTC -"));
-        assertEquals("Processing: PTC - 6 [0]", processingMessage);
+        assertEquals("Processing: PTC - 6", processingMessage);
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 5);
     }
 

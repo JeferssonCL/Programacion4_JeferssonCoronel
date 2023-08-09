@@ -8,22 +8,13 @@ package practica7_GestionDeTicketsBancarios;
 public interface IHeap <T extends Comparable<T>> {
 
     /**
-     * Moves the element at the specified index one step to the right in the heap.
+     * Removes and returns the element at the specified index from the heap.
      *
-     * @param index The index of the element to move.
+     * @param index The index of the element to be removed.
+     * @return The element that was removed.
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
      */
-     void moveElementToRight(int index);
-
-    /**
-     * Updates the value of an element at the specified index in the heap without performing reordering.
-     *
-     * @param index The index of the element to update.
-     * @param newValue The new value to set.
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
-     */
-     void updateValueAtIndex(int index, T newValue);
-
+     T removeByIndex(int index);
     /**
      * This method is used to get the quantity of elements in the heap.
      *
