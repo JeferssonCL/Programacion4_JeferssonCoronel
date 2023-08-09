@@ -16,7 +16,12 @@ public class BankTicketsManager {
         root = new Heap<>(true);
     }
 
-
+    /**
+     * Generates a new ticket code based on the customer's priority status.
+     *
+     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
+     * @return The generated ticket code.
+     */
     private String generateTicket(boolean isPriorityCustomer) {
         StringBuilder ticket = new StringBuilder();
         if (isPriorityCustomer)
@@ -26,6 +31,11 @@ public class BankTicketsManager {
         return String.valueOf(ticket.append(numberCustomer));
     }
 
+    /**
+     * Adds a new customer to the queue with the given priority status.
+     *
+     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
+     */
     public void addNewCustomerToQueue(boolean isPriorityCustomer) {
         numberCustomer++;
 
@@ -37,14 +47,23 @@ public class BankTicketsManager {
             root.moveElementToRight(lastPriorityIndex);
             newTicket.setNumberInQueue(lastPriorityIndex);
             root.updateValueAtIndex(lastPriorityIndex, newTicket);
-        } else
-            root.insert(newTicket);
+        } else root.insert(newTicket);
     }
 
+    /**
+     * Gets the root heap that holds the tickets in the manager.
+     *
+     * @return The root heap containing the tickets.
+     */
     public Heap<Ticket> getRoot() {
         return root;
     }
 
+    /**
+     * Finds the index of the last non-priority customer in the queue.
+     *
+     * @return The index of the last non-priority customer.
+     */
     private int findLastPriorityCustomer() {
         for (int i = 0; i < root.size(); i++) {
             if (root.get(i) != null && !root.get(i).isPriorityCustomer()) return i;
