@@ -50,10 +50,21 @@ public class BankTicketsManager {
         } else root.insert(newTicket);
     }
 
+    /**
+     * Serves one customer by processing and removing the highest-priority ticket from the queue.
+     *
+     * @return A message indicating the processing of the served customer's ticket.
+     * @throws IllegalStateException If the heap is empty.
+     */
     public String serveOneCustomer() {
         return "Processing: " + root.poll();
     }
 
+    /**
+     * Serves all customers by processing and removing their tickets from the queue.
+     *
+     * @return A string containing messages for each processed customer's ticket.
+     */
     public String serveAllCustomer() {
         StringBuilder sb = new StringBuilder();
 
