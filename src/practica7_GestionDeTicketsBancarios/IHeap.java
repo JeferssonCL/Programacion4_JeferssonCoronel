@@ -7,6 +7,11 @@ package practica7_GestionDeTicketsBancarios;
  */
 public interface IHeap <T extends Comparable<T>> {
 
+     void moveElementToRight(int index);
+
+
+     void updateValueAtIndex(int index, T newValue);
+
     /**
      * This method is used to get the quantity of elements in the heap.
      *

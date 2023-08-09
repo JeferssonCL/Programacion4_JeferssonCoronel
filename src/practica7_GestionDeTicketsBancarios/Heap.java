@@ -28,12 +28,7 @@ public class Heap<T extends Comparable<T>> implements IHeap<T> {
         this.isMinHeap = isMinHeap;
     }
 
-    /**
-     * Moves the element at the specified index one step to the right in the heap.
-     *
-     * @param index The index of the element to move.
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
-     */
+
     public void moveElementToRight(int index) {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of range.");
@@ -46,13 +41,7 @@ public class Heap<T extends Comparable<T>> implements IHeap<T> {
         for (int i = size - 1; i >= index; i--) heap[i + 1] = heap[i];
     }
 
-    /**
-     * Updates the value of an element at the specified index in the heap without performing reordering.
-     *
-     * @param index The index of the element to update.
-     * @param newValue The new value to set.
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
-     */
+
     public void updateValueAtIndex(int index, T newValue) {
         size++;
 
