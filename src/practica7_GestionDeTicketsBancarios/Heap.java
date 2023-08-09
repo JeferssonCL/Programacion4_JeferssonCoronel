@@ -1,7 +1,5 @@
 package practica7_GestionDeTicketsBancarios;
 
-import Practica6_HeapsImplementation.Parte1.IHeap;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -12,8 +10,8 @@ import java.util.Queue;
  * a MinHeap or a MaxHeap based on the value of the isMinHeap parameter provided
  * during initialization.
  */
-public class Heap implements IHeap {
-    private int[] heap;
+public class Heap<T extends Comparable<T>> implements IHeap<T> {
+    private T[] heap;
     private int size;
     private int capacity;
     private final boolean isMinHeap;
@@ -26,16 +24,17 @@ public class Heap implements IHeap {
     public Heap(boolean isMinHeap) {
         this.capacity = 10;
         this.size = 0;
-        this.heap = new int[capacity];
+        this.heap = (T[]) new Comparable[capacity];
         this.isMinHeap = isMinHeap;
     }
+
 
     /**
      * This method is used to get the array which is used to simulate the heap
      *
      * @return the array
      */
-    public int[] getHeap() {
+    public T[] getHeap() {
         return heap;
     }
 
@@ -45,10 +44,10 @@ public class Heap implements IHeap {
      * @param value The value to be inserted.
      * @throws IllegalStateException if the heap is full and cannot insert more elements.
      */
-    public void insert(int value) {
+    public void insert(T value) {
         if (size == capacity) {
             capacity *= 2;
-            int[] newHeap = new int[capacity];
+            T[] newHeap = (T[]) new Comparable[capacity];
             System.arraycopy(heap, 0, newHeap, 0, size);
             heap = newHeap;
         }
@@ -63,7 +62,7 @@ public class Heap implements IHeap {
      *
      * @param value The value to be removed.
      */
-    public void remove(int value) {
+    public void remove(T value) {
         int indexToRemove = search(value);
         if (indexToRemove == -1)
             return;
@@ -107,8 +106,8 @@ public class Heap implements IHeap {
 
         while (currentIdx > 0) {
             boolean shouldSwap;
-            if (isMinHeap) shouldSwap = heap[currentIdx] < heap[parentIdx];
-            else shouldSwap = heap[currentIdx] > heap[parentIdx];
+            if (isMinHeap) shouldSwap = heap[currentIdx].compareTo(heap[parentIdx]) < 0;
+            else shouldSwap = heap[currentIdx].compareTo(heap[parentIdx]) > 0;
 
             if (shouldSwap) {
                 swap(currentIdx, parentIdx);
@@ -131,18 +130,19 @@ public class Heap implements IHeap {
         int targetIdx = index;
 
         if (findLargest) {
-            if (leftChildIdx < size && heap[leftChildIdx] > heap[targetIdx])
+            if (leftChildIdx < size && heap[leftChildIdx].compareTo(heap[targetIdx]) > 0)
                 targetIdx = leftChildIdx;
 
-            if (rightChildIdx < size && heap[rightChildIdx] > heap[targetIdx])
+            if (rightChildIdx < size && heap[rightChildIdx].compareTo(heap[targetIdx]) > 0)
                 targetIdx = rightChildIdx;
         } else {
-            if (leftChildIdx < size && heap[leftChildIdx] < heap[targetIdx])
+            if (leftChildIdx < size && heap[leftChildIdx].compareTo(heap[targetIdx]) < 0)
                 targetIdx = leftChildIdx;
 
-            if (rightChildIdx < size && heap[rightChildIdx] < heap[targetIdx])
+            if (rightChildIdx < size && heap[rightChildIdx].compareTo(heap[targetIdx]) < 0)
                 targetIdx = rightChildIdx;
-        } return targetIdx;
+        }
+        return targetIdx;
     }
 
     /**
@@ -151,11 +151,12 @@ public class Heap implements IHeap {
      * @param value The value to be searched for.
      * @return The index of the value in the heap, or -1 if the value is not present.
      */
-    public int search(int value) {
+    public int search(T value) {
         for (int i = 0; i < size; i++) {
-            if (heap[i] == value)
+            if (heap[i].equals(value))
                 return i;
-        } return -1;
+        }
+        return -1;
     }
 
     /**
@@ -165,7 +166,7 @@ public class Heap implements IHeap {
      * @param j The index of the second element to be swapped.
      */
     private void swap(int i, int j) {
-        int temp = heap[i];
+        T temp = heap[i];
         heap[i] = heap[j];
         heap[j] = temp;
     }
@@ -221,7 +222,7 @@ public class Heap implements IHeap {
      * @return The value of the node at the specified index.
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
      */
-    public int get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Index out of range.");
 
@@ -235,7 +236,7 @@ public class Heap implements IHeap {
      * @return The root node value.
      * @throws IllegalStateException if the heap is empty.
      */
-    public int peek() {
+    public T peek() {
         if (size == 0)
             throw new IllegalStateException("Heap is empty.");
 
@@ -249,7 +250,7 @@ public class Heap implements IHeap {
      */
     @Override
     public int size() {
-        return (int) Arrays.stream(heap).filter(element -> element != 0).count();
+        return (int) Arrays.stream(heap).filter(Objects::nonNull).count();
     }
 
     /**
@@ -258,11 +259,11 @@ public class Heap implements IHeap {
      * @return The root node value.
      * @throws IllegalStateException if the heap is empty.
      */
-    public int poll() {
+    public T poll() {
         if (size == 0)
             throw new IllegalStateException("Heap is empty.");
 
-        int rootValue = heap[0];
+        T rootValue = heap[0];
         heap[0] = heap[size - 1];
         size--;
 
@@ -299,6 +300,7 @@ public class Heap implements IHeap {
             }
             sb.append(levelSb);
             sb.append("\n");
-        } return sb.toString();
+        }
+        return sb.toString();
     }
 }
