@@ -5,12 +5,12 @@ package practica7_GestionDeTicketsBancarios;
  * data structure that satisfies the heap property. A heap can be used to efficiently
  * retrieve and manipulate the minimum or maximum element from a collection.
  */
-public interface IHeap {
+public interface IHeap <T extends Comparable<T>> {
 
     /**
-     * This method is used to get the quantity of elements in heaps.
+     * This method is used to get the quantity of elements in the heap.
      *
-     * @return the elements of heaps.
+     * @return The number of elements in the heap.
      */
     int size();
 
@@ -19,14 +19,14 @@ public interface IHeap {
      *
      * @return The top element of the heap.
      */
-    int poll();
+    T poll();
 
     /**
      * Retrieves the top element from the heap without removing it.
      *
      * @return The top element of the heap.
      */
-    int peek();
+    T peek();
 
     /**
      * Retrieves the element at the specified index in the heap.
@@ -34,7 +34,7 @@ public interface IHeap {
      * @param index The index of the element to retrieve.
      * @return The element at the specified index.
      */
-    int get(int index);
+    T get(int index);
 
     /**
      * Searches for the specified value in the heap and returns its index.
@@ -42,29 +42,27 @@ public interface IHeap {
      * @param value The value to search for in the heap.
      * @return The index of the first occurrence of the value in the heap; otherwise, -1.
      */
-    int search(int value);
+    int search(T value);
 
     /**
      * Removes the first occurrence of the specified value from the heap, if present.
      *
      * @param value The value to be removed from the heap.
      */
-    void remove(int value);
+    void remove(T value);
 
     /**
      * Inserts the specified value into the heap and maintains the heap property.
      *
      * @param value The value to be inserted into the heap.
      */
-    void insert(int value);
+    void insert(T value);
 
     /**
      * Retrieves the underlying array representation of the heap.
      *
      * @return The array representation of the heap.
      */
-    int[] getHeap();
+    T[] getHeap();
 }
-
-
 
