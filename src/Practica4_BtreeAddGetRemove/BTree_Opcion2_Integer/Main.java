@@ -1,9 +1,8 @@
-package Practice4_BtreeAddGetRemove.BTree_Opcion1_Generics;
+package Practica4_BtreeAddGetRemove.BTree_Opcion2_Integer;
 
 public class Main {
-
     public static void main(String[] args) {
-        BTree<Integer> bTree = new BTree<>(4);
+        BTree bTree = new BTree(4);
         bTree.add(7);
         bTree.add(12);
         bTree.add(15);
@@ -16,15 +15,9 @@ public class Main {
         bTree.add(8);
         bTree.add(1);
         bTree.add(2);
-        bTree.add(18);
-        bTree.add(78);
-        bTree.add(32);
-        bTree.add(29);
+
+        System.out.println(bTree.getTreeNode(79));
 
         System.out.println(bTree);
-        System.out.println(bTree.getLevels().size());
-        bTree.remove(18);
-        System.out.println(bTree);
-        System.out.println(bTree.getTreeNode(12));
     }
 }

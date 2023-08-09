@@ -1,4 +1,4 @@
-package Practice4_BtreeAddGetRemove.BTree_Opcion2_Integer;
+package Practica4_BtreeAddGetRemove.BTree_Opcion2_Integer;
 
 import java.util.*;
 import java.util.stream.Collectors;
