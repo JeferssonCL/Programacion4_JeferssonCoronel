@@ -74,6 +74,14 @@ public class BankTicketsManager {
         } return sb.toString();
     }
 
+    /**
+     * This method is used to get the customers in queue.
+     *
+     * @return the number of customers in queue
+     */
+    public int getNumberOfCustomersInQueue() {
+        return root.size();
+    }
 
     /**
      * Gets the root heap that holds the tickets in the manager.
