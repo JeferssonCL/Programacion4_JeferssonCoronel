@@ -1,5 +1,7 @@
 package practica7_GestionDeTicketsBancarios;
 
+import java.util.Scanner;
+
 /**
  * The BankTicketsManager class manages a queue of tickets for a bank.
  * It uses a heap-based priority queue to prioritize tickets from priority customers.
@@ -17,21 +19,6 @@ public class BankTicketsManager {
     }
 
     /**
-     * Generates a new ticket code based on the customer's priority status.
-     *
-     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
-     * @return The generated ticket code.
-     */
-    private String generateTicket(boolean isPriorityCustomer) {
-        StringBuilder ticket = new StringBuilder();
-        if (isPriorityCustomer)
-            ticket.append("PTC - ");
-        else
-            ticket.append("NTC - ");
-        return String.valueOf(ticket.append(numberCustomer));
-    }
-
-    /**
      * Adds a new customer to the queue with the given priority status.
      *
      * @param isPriorityCustomer Indicates whether the customer is a priority customer.
@@ -41,6 +28,7 @@ public class BankTicketsManager {
 
         String code = generateTicket(isPriorityCustomer);
         Ticket newTicket = new Ticket(code, isPriorityCustomer, numberCustomer);
+        System.out.println(StringManager.getInstance().generateSimulationBankTicket(code, isPriorityCustomer));
 
         if (isPriorityCustomer && root.size() > 0) {
             int lastPriorityIndex = findLastPriorityCustomer();
@@ -59,7 +47,17 @@ public class BankTicketsManager {
      * @throws IllegalStateException If the heap is empty.
      */
     public String serveOneCustomer() {
-        return "Processing: " + root.poll();
+        if (root.size() == 0) {
+            return "No tickets in the queue.";
+        }
+
+        Ticket ticket = root.poll();
+        String currentTicket = ticket.getCode();
+        String nextTicket = root.size() == 0 ? "No more tickets" : root.peek().getCode();
+        String bankName = "BCN Bank";
+
+        return StringManager.getInstance().generateSimulationAttentionTicket(
+                currentTicket, nextTicket, bankName);
     }
 
     /**
@@ -71,9 +69,23 @@ public class BankTicketsManager {
         StringBuilder sb = new StringBuilder();
 
         while (root.size() != 0) {
-            Ticket ticket = root.poll();
-            sb.append("Processing: ").append(ticket).append("\n");
+            sb.append(serveOneCustomer()).append("\n");
         } return sb.toString();
+    }
+
+    /**
+     * Generates a new ticket code based on the customer's priority status.
+     *
+     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
+     * @return The generated ticket code.
+     */
+    private String generateTicket(boolean isPriorityCustomer) {
+        StringBuilder ticket = new StringBuilder();
+        if (isPriorityCustomer)
+            ticket.append("PTC - ");
+        else
+            ticket.append("NTC - ");
+        return String.valueOf(ticket.append(numberCustomer));
     }
 
     /**
@@ -105,19 +117,23 @@ public class BankTicketsManager {
         } return 0;
     }
 
-    public String simulateBankAttention() {
-        Heap<Ticket> copyHeap = new Heap<>(true);
+    public void runProgram() {
+        Scanner scanner = new Scanner(System.in);
+        boolean enable = false;
 
-        for (int i = 0; i < root.size(); i++) copyHeap.insert(root.get(i));
+        while (!enable) {
+            System.out.println(StringManager.getInstance().printWelcomeMenu("BNC"));
+            int option = scanner.nextInt();
+            scanner.nextLine();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Init Bank Attention:\n");
-
-        while (copyHeap.size() > 0) {
-            Ticket currentTicket = copyHeap.poll();
-            sb.append("Now serving: ").append(currentTicket.getCode()).append("\n");
-            if (copyHeap.size() > 0) sb.append("Next in line: ").append(copyHeap.peek().getCode()).append("\n");
-            sb.append("-".repeat(60)).append("\n");
-        } return sb.toString();
+            switch (option) {
+                case 1 -> addNewCustomerToQueue(true);
+                case 2 -> addNewCustomerToQueue(false);
+                case 3 -> {
+                    System.out.println(serveAllCustomer());
+                    enable = true;
+                } default -> System.out.println("\nInvalid choice. Please select a valid option.");
+            }
+        }
     }
 }
