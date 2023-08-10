@@ -1,8 +1,5 @@
 package practica7_GestionDeTicketsBancarios;
 
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
 /**
  * The BankTicketsManager class manages a queue of tickets for a bank.
  * It uses a heap-based priority queue to prioritize tickets from priority customers.
@@ -20,61 +17,6 @@ public class BankTicketsManager {
     }
 
     /**
-     * Adds a new customer to the queue with the given priority status.
-     *
-     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
-     */
-    public void addNewCustomerToQueue(boolean isPriorityCustomer) {
-        numberCustomer++;
-
-        String code = generateTicket(isPriorityCustomer);
-        Ticket newTicket = new Ticket(code, isPriorityCustomer, numberCustomer);
-
-        if (isPriorityCustomer && root.size() > 0) {
-            int lastPriorityIndex = findLastPriorityCustomer();
-            Ticket previousTicket = root.removeByIndex(lastPriorityIndex);
-            previousTicket.setNumberInQueue(lastPriorityIndex + 1);
-            newTicket.setNumberInQueue(lastPriorityIndex);
-            root.insert(newTicket);
-            root.insert(previousTicket);
-        } else root.insert(newTicket);
-    }
-
-    /**
-     * Serves one customer by processing and removing the highest-priority ticket from the queue.
-     *
-     * @return A message indicating the processing of the served customer's ticket.
-     * @throws IllegalStateException If the heap is empty.
-     */
-    public String serveOneCustomer() {
-        if (root.size() == 0) return "No tickets in the queue.";
-
-        Ticket ticket = root.poll();
-        String currentTicket = ticket.getCode();
-        String nextTicket = root.size() == 0 ? "No more tickets" : root.peek().getCode();
-        String bankName = "BCN Bank";
-
-        return ManagerString.getInstance().generateSimulationAttentionTicket(currentTicket, nextTicket, bankName);
-    }
-
-    /**
-     * Serves all customers by processing and removing their tickets from the queue.
-     *
-     * @return A string containing messages for each processed customer's ticket.
-     */
-    public String serveAllCustomer() throws InterruptedException {
-        StringBuilder sb = new StringBuilder();
-        ManagerString.getInstance().generateCustomerServiceAttention();
-
-        while (root.size() != 0) {
-            String ticketOneCustomer = serveOneCustomer() + "\n";
-            System.out.println(ticketOneCustomer);
-            sb.append(ticketOneCustomer);
-            TimeUnit.SECONDS.sleep(2);
-        } return sb.toString();
-    }
-
-    /**
      * Generates a new ticket code based on the customer's priority status.
      *
      * @param isPriorityCustomer Indicates whether the customer is a priority customer.
@@ -87,6 +29,49 @@ public class BankTicketsManager {
         else
             ticket.append("NTC - ");
         return String.valueOf(ticket.append(numberCustomer));
+    }
+
+    /**
+     * Adds a new customer to the queue with the given priority status.
+     *
+     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
+     */
+    public void addNewCustomerToQueue(boolean isPriorityCustomer) {
+        numberCustomer++;
+
+        String code = generateTicket(isPriorityCustomer);
+        Ticket newTicket = new Ticket(code, isPriorityCustomer, numberCustomer);
+
+        if (isPriorityCustomer && root.size() > 0) {
+            int lastPriorityIndex = findLastPriorityCustomer();
+            root.moveElementToRight(lastPriorityIndex);
+            newTicket.setNumberInQueue(lastPriorityIndex);
+            root.updateValueAtIndex(lastPriorityIndex, newTicket);
+        } else root.insert(newTicket);
+    }
+
+    /**
+     * Serves one customer by processing and removing the highest-priority ticket from the queue.
+     *
+     * @return A message indicating the processing of the served customer's ticket.
+     * @throws IllegalStateException If the heap is empty.
+     */
+    public String serveOneCustomer() {
+        return "Processing: " + root.poll();
+    }
+
+    /**
+     * Serves all customers by processing and removing their tickets from the queue.
+     *
+     * @return A string containing messages for each processed customer's ticket.
+     */
+    public String serveAllCustomer() {
+        StringBuilder sb = new StringBuilder();
+
+        while (root.size() != 0) {
+            Ticket ticket = root.poll();
+            sb.append("Processing: ").append(ticket).append("\n");
+        } return sb.toString();
     }
 
     /**
@@ -116,37 +101,5 @@ public class BankTicketsManager {
         for (int i = 0; i < root.size(); i++) {
             if (root.get(i) != null && !root.get(i).isPriorityCustomer()) return i;
         } return 0;
-    }
-
-    /**
-     * Handles the menu option selected by the user.
-     *
-     * @param option The selected menu option.
-     */
-    private void handleMenuOption(int option) throws InterruptedException {
-        switch (option) {
-            case 1 -> addNewCustomerToQueue(true);
-            case 2 -> addNewCustomerToQueue(false);
-            case 3 -> System.out.println(ManagerString.getInstance().generateTicketList(root));
-            case 4 -> serveAllCustomer();
-            default -> System.out.println("\nInvalid choice. Please select a valid option.");
-        }
-    }
-
-    /**
-     * Runs the ticket program.
-     */
-    public void runProgram() throws InterruptedException {
-        Scanner scanner = new Scanner(System.in);
-        boolean enable = false;
-
-        while (!enable) {
-            System.out.print(ManagerString.getInstance().printWelcomeMenu("BNC"));
-            int option = scanner.nextInt();
-            scanner.nextLine();
-            handleMenuOption(option);
-
-            if (option == 4) enable = true;
-        }
     }
 }

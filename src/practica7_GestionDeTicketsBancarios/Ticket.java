@@ -62,21 +62,12 @@ public class Ticket implements Comparable<Ticket> {
     }
 
     /**
-     * Retrieves the ticket code.
-     *
-     * @return The code of the ticket.
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
      * Returns a string representation of the ticket.
      *
      * @return The ticket code along with its position in the queue.
      */
     @Override
     public String toString() {
-        return code;
+        return code + " [" + numberInQueue + "]";
     }
 }
