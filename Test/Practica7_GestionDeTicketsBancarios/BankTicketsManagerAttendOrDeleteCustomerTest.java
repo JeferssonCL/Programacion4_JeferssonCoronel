@@ -2,12 +2,10 @@ package Practica7_GestionDeTicketsBancarios;
 
 import org.testng.annotations.Test;
 import practica7_GestionDeTicketsBancarios.BankTicketsManager;
-
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class BankTicketsManagerAttendOrDeleteCustomerTest {
-
     private BankTicketsManager bankBCB;
 
     @Test
@@ -16,20 +14,22 @@ public class BankTicketsManagerAttendOrDeleteCustomerTest {
 
         bankBCB.addNewCustomerToQueue(true);
         String processingMessage = bankBCB.serveOneCustomer();
-        System.out.println(processingMessage);
-        assertTrue(processingMessage.startsWith("Processing: PTC - "));
+
+        assertTrue(processingMessage.contains("PTC - 1"));
     }
 
     @Test
-    public void testServeAllCustomers() {
+    public void testServeAllCustomers() throws InterruptedException {
         bankBCB = new BankTicketsManager();
 
-        bankBCB.addNewCustomerToQueue(true);
         bankBCB.addNewCustomerToQueue(false);
-
+        bankBCB.addNewCustomerToQueue(false);
+        bankBCB.addNewCustomerToQueue(true);
         String processingMessages = bankBCB.serveAllCustomer();
-        assertTrue(processingMessages.contains("Processing: PTC -"));
-        assertTrue(processingMessages.contains("Processing: NTC -"));
+
+        assertTrue(processingMessages.contains("PTC - 3"));
+        assertTrue(processingMessages.contains("NTC - 1"));
+        assertTrue(processingMessages.contains("NTC - 2"));
     }
 
     @Test
@@ -42,36 +42,41 @@ public class BankTicketsManagerAttendOrDeleteCustomerTest {
         bankBCB.addNewCustomerToQueue(false);
         bankBCB.addNewCustomerToQueue(false);
         bankBCB.addNewCustomerToQueue(true);
+        assertEquals(bankBCB.getNumberOfCustomersInQueue(), 6);
 
         String processingMessage = bankBCB.serveOneCustomer();
-        assertTrue(processingMessage.startsWith("Processing: PTC -"));
-        assertEquals("Processing: PTC - 6", processingMessage);
+
+        assertTrue(processingMessage.contains("PTC - 6"));
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 5);
     }
 
     @Test
-    public void testServeAllCustomersPriorityFirst() {
+    public void testServeAllCustomersPriorityFirst() throws InterruptedException {
         bankBCB = new BankTicketsManager();
 
         bankBCB.addNewCustomerToQueue(true);
         bankBCB.addNewCustomerToQueue(false);
+        assertEquals(bankBCB.getNumberOfCustomersInQueue(), 2);
 
         String processingMessages = bankBCB.serveAllCustomer();
-        assertTrue(processingMessages.contains("Processing: PTC -"));
-        assertTrue(processingMessages.contains("Processing: NTC -"));
+
+        assertTrue(processingMessages.contains("PTC - 1"));
+        assertTrue(processingMessages.contains("NTC - 2"));
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 0);
     }
 
     @Test
-    public void testServeAllCustomersNonPriorityFirst() {
+    public void testServeAllCustomersNonPriorityFirst() throws InterruptedException {
         bankBCB = new BankTicketsManager();
 
         bankBCB.addNewCustomerToQueue(false);
         bankBCB.addNewCustomerToQueue(true);
+        assertEquals(bankBCB.getNumberOfCustomersInQueue(), 2);
 
         String processingMessages = bankBCB.serveAllCustomer();
-        assertTrue(processingMessages.contains("Processing: NTC -"));
-        assertTrue(processingMessages.contains("Processing: PTC -"));
+
+        assertTrue(processingMessages.contains("NTC - 1"));
+        assertTrue(processingMessages.contains("PTC - 2"));
         assertEquals(bankBCB.getNumberOfCustomersInQueue(), 0);
     }
 }
