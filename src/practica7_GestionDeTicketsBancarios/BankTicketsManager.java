@@ -1,5 +1,8 @@
 package practica7_GestionDeTicketsBancarios;
 
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 /**
  * The BankTicketsManager class manages a queue of tickets for a bank.
  * It uses a heap-based priority queue to prioritize tickets from priority customers.
@@ -17,21 +20,6 @@ public class BankTicketsManager {
     }
 
     /**
-     * Generates a new ticket code based on the customer's priority status.
-     *
-     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
-     * @return The generated ticket code.
-     */
-    private String generateTicket(boolean isPriorityCustomer) {
-        StringBuilder ticket = new StringBuilder();
-        if (isPriorityCustomer)
-            ticket.append("PTC - ");
-        else
-            ticket.append("NTC - ");
-        return String.valueOf(ticket.append(numberCustomer));
-    }
-
-    /**
      * Adds a new customer to the queue with the given priority status.
      *
      * @param isPriorityCustomer Indicates whether the customer is a priority customer.
@@ -44,9 +32,11 @@ public class BankTicketsManager {
 
         if (isPriorityCustomer && root.size() > 0) {
             int lastPriorityIndex = findLastPriorityCustomer();
-            root.moveElementToRight(lastPriorityIndex);
+            Ticket previousTicket = root.removeByIndex(lastPriorityIndex);
+            previousTicket.setNumberInQueue(lastPriorityIndex + 1);
             newTicket.setNumberInQueue(lastPriorityIndex);
-            root.updateValueAtIndex(lastPriorityIndex, newTicket);
+            root.insert(newTicket);
+            root.insert(previousTicket);
         } else root.insert(newTicket);
     }
 
@@ -57,7 +47,14 @@ public class BankTicketsManager {
      * @throws IllegalStateException If the heap is empty.
      */
     public String serveOneCustomer() {
-        return "Processing: " + root.poll();
+        if (root.size() == 0) return "No tickets in the queue.";
+
+        Ticket ticket = root.poll();
+        String currentTicket = ticket.getCode();
+        String nextTicket = root.size() == 0 ? "No more tickets" : root.peek().getCode();
+        String bankName = "BCN Bank";
+
+        return ManagerString.getInstance().generateSimulationAttentionTicket(currentTicket, nextTicket, bankName);
     }
 
     /**
@@ -65,13 +62,31 @@ public class BankTicketsManager {
      *
      * @return A string containing messages for each processed customer's ticket.
      */
-    public String serveAllCustomer() {
+    public String serveAllCustomer() throws InterruptedException {
         StringBuilder sb = new StringBuilder();
+        ManagerString.getInstance().generateCustomerServiceAttention();
 
         while (root.size() != 0) {
-            Ticket ticket = root.poll();
-            sb.append("Processing: ").append(ticket).append("\n");
+            String ticketOneCustomer = serveOneCustomer() + "\n";
+            System.out.println(ticketOneCustomer);
+            sb.append(ticketOneCustomer);
+            TimeUnit.SECONDS.sleep(2);
         } return sb.toString();
+    }
+
+    /**
+     * Generates a new ticket code based on the customer's priority status.
+     *
+     * @param isPriorityCustomer Indicates whether the customer is a priority customer.
+     * @return The generated ticket code.
+     */
+    private String generateTicket(boolean isPriorityCustomer) {
+        StringBuilder ticket = new StringBuilder();
+        if (isPriorityCustomer)
+            ticket.append("PTC - ");
+        else
+            ticket.append("NTC - ");
+        return String.valueOf(ticket.append(numberCustomer));
     }
 
     /**
@@ -101,5 +116,37 @@ public class BankTicketsManager {
         for (int i = 0; i < root.size(); i++) {
             if (root.get(i) != null && !root.get(i).isPriorityCustomer()) return i;
         } return 0;
+    }
+
+    /**
+     * Handles the menu option selected by the user.
+     *
+     * @param option The selected menu option.
+     */
+    private void handleMenuOption(int option) throws InterruptedException {
+        switch (option) {
+            case 1 -> addNewCustomerToQueue(true);
+            case 2 -> addNewCustomerToQueue(false);
+            case 3 -> System.out.println(ManagerString.getInstance().generateTicketList(root));
+            case 4 -> serveAllCustomer();
+            default -> System.out.println("\nInvalid choice. Please select a valid option.");
+        }
+    }
+
+    /**
+     * Runs the ticket program.
+     */
+    public void runProgram() throws InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        boolean enable = false;
+
+        while (!enable) {
+            System.out.print(ManagerString.getInstance().printWelcomeMenu("BNC"));
+            int option = scanner.nextInt();
+            scanner.nextLine();
+            handleMenuOption(option);
+
+            if (option == 4) enable = true;
+        }
     }
 }

@@ -1,8 +1,6 @@
 package practica7_GestionDeTicketsBancarios;
 
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -27,35 +25,6 @@ public class Heap<T extends Comparable<T>> implements IHeap<T> {
         this.heap = (T[]) new Comparable[capacity];
         this.isMinHeap = isMinHeap;
     }
-
-    /**
-     * Moves the element at the specified index one step to the right in the heap.
-     *
-     * @param index The index of the element to move.
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
-     */
-    public void moveElementToRight(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index out of range.");
-
-        if (size >= heap.length) {
-            int newCapacity = heap.length * 2;
-            heap = Arrays.copyOf(heap, newCapacity);
-        }
-
-        for (int i = size - 1; i >= index; i--) heap[i + 1] = heap[i];
-    }
-
-
-    public void updateValueAtIndex(int index, T newValue) {
-        size++;
-
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index out of range.");
-
-        heap[index] = newValue;
-    }
-
 
     /**
      * This method is used to get the array which is used to simulate the heap
@@ -99,6 +68,26 @@ public class Heap<T extends Comparable<T>> implements IHeap<T> {
         size--;
 
         reOrderDown(indexToRemove, isMinHeap);
+    }
+
+    /**
+     * Removes and returns the element at the specified index from the heap.
+     *
+     * @param index The index of the element to be removed.
+     * @return The element that was removed.
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size).
+     */
+    public T removeByIndex(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Index out of range.");
+
+        T removedElement = heap[index];
+        heap[index] = heap[size - 1];
+        size--;
+
+        reOrderDown(index, isMinHeap);
+        reOrderUp(index, isMinHeap);
+
+        return removedElement;
     }
 
     /**
