@@ -28,7 +28,6 @@ public class BankTicketsManager {
 
         String code = generateTicket(isPriorityCustomer);
         Ticket newTicket = new Ticket(code, isPriorityCustomer, numberCustomer);
-        System.out.println(StringManager.getInstance().generateSimulationBankTicket(code, isPriorityCustomer));
 
         if (isPriorityCustomer && root.size() > 0) {
             int lastPriorityIndex = findLastPriorityCustomer();
