@@ -1,6 +1,7 @@
 package practica7_GestionDeTicketsBancarios;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The BankTicketsManager class manages a queue of tickets for a bank.
@@ -46,17 +47,14 @@ public class BankTicketsManager {
      * @throws IllegalStateException If the heap is empty.
      */
     public String serveOneCustomer() {
-        if (root.size() == 0) {
-            return "No tickets in the queue.";
-        }
+        if (root.size() == 0) return "No tickets in the queue.";
 
         Ticket ticket = root.poll();
         String currentTicket = ticket.getCode();
         String nextTicket = root.size() == 0 ? "No more tickets" : root.peek().getCode();
         String bankName = "BCN Bank";
 
-        return StringManager.getInstance().generateSimulationAttentionTicket(
-                currentTicket, nextTicket, bankName);
+        return ManagerString.getInstance().generateSimulationAttentionTicket(currentTicket, nextTicket, bankName);
     }
 
     /**
@@ -64,11 +62,15 @@ public class BankTicketsManager {
      *
      * @return A string containing messages for each processed customer's ticket.
      */
-    public String serveAllCustomer() {
+    public String serveAllCustomer() throws InterruptedException {
         StringBuilder sb = new StringBuilder();
+        ManagerString.getInstance().generateCustomerServiceAttention();
 
         while (root.size() != 0) {
-            sb.append(serveOneCustomer()).append("\n");
+            String ticketOneCustomer = serveOneCustomer() + "\n";
+            System.out.println(ticketOneCustomer);
+            sb.append(ticketOneCustomer);
+            TimeUnit.SECONDS.sleep(2);
         } return sb.toString();
     }
 
@@ -116,23 +118,35 @@ public class BankTicketsManager {
         } return 0;
     }
 
-    public void runProgram() {
+    /**
+     * Handles the menu option selected by the user.
+     *
+     * @param option The selected menu option.
+     */
+    private void handleMenuOption(int option) throws InterruptedException {
+        switch (option) {
+            case 1 -> addNewCustomerToQueue(true);
+            case 2 -> addNewCustomerToQueue(false);
+            case 3 -> System.out.println(ManagerString.getInstance().generateTicketList(root));
+            case 4 -> serveAllCustomer();
+            default -> System.out.println("\nInvalid choice. Please select a valid option.");
+        }
+    }
+
+    /**
+     * Runs the ticket program.
+     */
+    public void runProgram() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         boolean enable = false;
 
         while (!enable) {
-            System.out.println(StringManager.getInstance().printWelcomeMenu("BNC"));
+            System.out.print(ManagerString.getInstance().printWelcomeMenu("BNC"));
             int option = scanner.nextInt();
             scanner.nextLine();
+            handleMenuOption(option);
 
-            switch (option) {
-                case 1 -> addNewCustomerToQueue(true);
-                case 2 -> addNewCustomerToQueue(false);
-                case 3 -> {
-                    System.out.println(serveAllCustomer());
-                    enable = true;
-                } default -> System.out.println("\nInvalid choice. Please select a valid option.");
-            }
+            if (option == 4) enable = true;
         }
     }
 }
