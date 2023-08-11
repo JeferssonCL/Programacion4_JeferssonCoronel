@@ -1,4 +1,4 @@
-package practica7_GestionDeTicketsBancarios;
+package practica7_GestionDeTicketsBancarios.Parte1;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -62,15 +62,18 @@ public class BankTicketsManager {
      *
      * @return A string containing messages for each processed customer's ticket.
      */
-    public String serveAllCustomer() throws InterruptedException {
+    public String serveAllCustomer(boolean isTest) throws InterruptedException {
         StringBuilder sb = new StringBuilder();
-        ManagerString.getInstance().generateCustomerServiceAttention();
+
+        if (isTest) ManagerString.getInstance().generateCustomerServiceAttention();
 
         while (root.size() != 0) {
             String ticketOneCustomer = serveOneCustomer() + "\n";
-            System.out.println(ticketOneCustomer);
             sb.append(ticketOneCustomer);
-            TimeUnit.SECONDS.sleep(2);
+            if (isTest) {
+                System.out.println(ticketOneCustomer);
+                TimeUnit.SECONDS.sleep(2);
+            }
         } return sb.toString();
     }
 
@@ -128,7 +131,7 @@ public class BankTicketsManager {
             case 1 -> addNewCustomerToQueue(true);
             case 2 -> addNewCustomerToQueue(false);
             case 3 -> System.out.println(ManagerString.getInstance().generateTicketList(root));
-            case 4 -> serveAllCustomer();
+            case 4 -> serveAllCustomer(true);
             default -> System.out.println("\nInvalid choice. Please select a valid option.");
         }
     }

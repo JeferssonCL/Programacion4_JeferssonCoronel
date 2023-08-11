@@ -1,4 +1,4 @@
-package practica7_GestionDeTicketsBancarios;
+package practica7_GestionDeTicketsBancarios.Parte1;
 
 /**
  * The Ticket class represents a customer ticket in a bank queue.

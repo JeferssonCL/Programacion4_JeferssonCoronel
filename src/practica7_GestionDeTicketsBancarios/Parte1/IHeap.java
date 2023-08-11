@@ -1,4 +1,4 @@
-package practica7_GestionDeTicketsBancarios;
+package practica7_GestionDeTicketsBancarios.Parte1;
 
 /**
  * The IHeap interface represents a heap data structure, which is a specialized tree-based
