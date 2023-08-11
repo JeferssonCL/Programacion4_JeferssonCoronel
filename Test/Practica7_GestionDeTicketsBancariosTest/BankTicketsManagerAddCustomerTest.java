@@ -1,7 +1,7 @@
 package Practica7_GestionDeTicketsBancariosTest;
 
 import org.testng.annotations.Test;
-import practica7_GestionDeTicketsBancarios.BankTicketsManager;
+import practica7_GestionDeTicketsBancarios.Parte1.BankTicketsManager;
 
 import static org.testng.AssertJUnit.assertEquals;
 

@@ -40,7 +40,7 @@ public class HeapVsPriorityQueueComparison {
 
         startTime = System.nanoTime();
         for (int i = 0; i < 100000; i++)
-            bankTicketsManager.serveAllCustomer();
+            bankTicketsManager.serveAllCustomer(false);
 
         endTime = System.nanoTime();
         System.out.println("Custom Heap - Time taken for removal: " + (endTime - startTime) + " ns");
@@ -50,7 +50,7 @@ public class HeapVsPriorityQueueComparison {
 
         startTime = System.nanoTime();
         for (int i = 0; i < 100000; i++)
-            bankTicketsManager.serveAllCustomer();
+            bankTicketsManager.serveAllCustomer(false);
 
         endTime = System.nanoTime();
         System.out.println("Java Priority Queue - Time taken for removal: " + (endTime - startTime) + " ns");
