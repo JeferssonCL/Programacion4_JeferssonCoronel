@@ -1,4 +1,4 @@
-package practica7_GestionDeTicketsBancarios;
+package practica7_GestionDeTicketsBancarios.Parte1;
 
 /**
  * A utility class that provides ANSI escape codes for coloring text.

@@ -1,6 +1,5 @@
-package practica7_GestionDeTicketsBancarios;
+package practica7_GestionDeTicketsBancarios.Parte1;
 
-import java.awt.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
