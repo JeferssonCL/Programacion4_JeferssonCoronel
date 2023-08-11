@@ -18,6 +18,20 @@ public class BankTicketsManagerPriorityQueue {
         clientNumber++;
     }
 
+    public void serveOneCustomer() {
+        queueCustomers.poll();
+        clientNumber--;
+    }
+
+    public void serveAllCustomer() {
+        System.out.println("Starting customer service:");
+        while (!queueCustomers.isEmpty()) {
+            Ticket nextTicket = queueCustomers.poll();
+            System.out.println("- Processing ticket: TKL-" + nextTicket);
+            clientNumber --;
+        }
+    }
+
     public PriorityQueue<Ticket> getQueueCustomers() {
         return queueCustomers;
     }
