@@ -49,8 +49,8 @@ public class InOutUtil {
         int[] nxn;
         while (true) {
             nxn = requestValuesOfRowsAndColumns(sc);
-            if (nxn[0] == nxn[1] && nxn[1] != 0 & nxn[0] < 7) break;
-            else System.out.println("* Mistake! Rows and columns have to be equal, not equal to 0 and less than 7!");
+            if (nxn[0] == nxn[1] && nxn[1] != 0 & nxn[0] < 6) break;
+            else System.out.println("* Mistake! Rows and columns have to be equal, not equal to 0 and less than 6!");
         } return nxn[1];
     }
 
