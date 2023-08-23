@@ -49,8 +49,8 @@ public class InOutUtil {
         int[] nxn;
         while (true) {
             nxn = requestValuesOfRowsAndColumns(sc);
-            if (nxn[0] == nxn[1] && nxn[1] != 0) break;
-            else System.out.println(" * Mistake! Rows and columns have to be equal to and not equal to 0 !");
+            if (nxn[0] == nxn[1] && nxn[1] != 0 & nxn[0] < 7) break;
+            else System.out.println("* Mistake! Rows and columns have to be equal, not equal to 0 and less than 7!");
         } return nxn[1];
     }
 
@@ -80,8 +80,9 @@ public class InOutUtil {
 
         do {
             System.out.print("-".repeat(60) + "\n-> Please enter the number of cores (positive and non-zeros): ");
-            cores = sc.nextInt();
-            if (cores == 0) return Runtime.getRuntime().availableProcessors();
+            try {
+                cores = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {cores = Runtime.getRuntime().availableProcessors();}
         } while (cores <= 0);
         return cores;
     }

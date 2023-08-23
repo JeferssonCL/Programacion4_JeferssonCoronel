@@ -163,12 +163,12 @@ public class MatrixMultiplierWithFibonacci {
      * @throws InterruptedException if interrupted during thread execution.
      */
     private void fillNewArrayWithFibonacciUsingThreads() throws InterruptedException {
-        long startTime = System.nanoTime();
         int elementsPerThread = (nxn * nxn) / numberCores;
 
         MyThread[] threads = new MyThread[numberCores];
         getPositions(threads, elementsPerThread);
 
+        long startTime = System.nanoTime();
         for (int i = 0; i < numberCores; i++) threads[i].join();
         long endTime = System.nanoTime();
         executionTime = endTime - startTime;

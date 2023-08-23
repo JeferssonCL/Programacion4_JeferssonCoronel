@@ -13,11 +13,12 @@ public class Main {
         long timeWithThreads = multiplier.getExecutionTime();
 
         long minExecutionTime = Math.min(timeWithoutThreads, timeWithThreads);
+        long maxExecutionTime = Math.max(timeWithoutThreads, timeWithThreads);
 
         System.out.println("Execution time without threads: " + timeWithoutThreads);
         System.out.println("Execution time with threads: " + timeWithThreads);
-        System.out.println("Minimum execution time: " + minExecutionTime + " " +
-                (minExecutionTime == timeWithoutThreads ? "(Without Threads)" : "(With Threads)"));
-
+        System.out.println(" -> Minimum execution time: " + minExecutionTime + " " +
+                (minExecutionTime == timeWithoutThreads ? "(Without Threads)" : "(With Threads)") + " ns.");
+        System.out.println(" -> Difference between two times: " + (maxExecutionTime - minExecutionTime) + " ns.");
     }
 }
