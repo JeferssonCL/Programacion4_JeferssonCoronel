@@ -2,9 +2,17 @@ package Practica8_FibonacciMatrixMultiplication;
 
 import java.util.Scanner;
 
+/**
+ * This class provides input/output utility methods for the matrix multiplication program.
+ */
 public class InOutUtil {
     private static InOutUtil inOutUtil;
 
+    /**
+     * Get an instance of InOutUtil.
+     *
+     * @return An instance of InOutUtil.
+     */
     public static InOutUtil getInstance() {
         if (inOutUtil == null)
             inOutUtil = new InOutUtil();
@@ -31,6 +39,11 @@ public class InOutUtil {
         return rangeOfValues;
     }
 
+    /**
+     * Get the number of rows and columns for the matrix from user input.
+     *
+     * @return The number of rows and columns (since they're equal).
+     */
     public int getRowAndColumnNumbers() {
         Scanner sc = new Scanner(System.in);
         int[] nxn;
@@ -41,6 +54,11 @@ public class InOutUtil {
         } return nxn[1];
     }
 
+    /**
+     * Get the number of CPU cores from user input.
+     *
+     * @return The number of CPU cores.
+     */
     public int[] getRangeOfRandomItems() {
         Scanner sc = new Scanner(System.in);
         int[] range;
@@ -51,11 +69,23 @@ public class InOutUtil {
         } return range;
     }
 
+    /**
+     * Prompt the user to enter the number of CPU cores.
+     *
+     * @return The number of CPU cores (defaulted to 8 if not provided, if negative, or if 0 entered).
+     */
     public int getNumberOfCores() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("-".repeat(60) + "\n-> Please enter the number of cores: ");
-        return sc.nextInt();
+        int cores;
+
+        do {
+            System.out.print("-".repeat(60) + "\n-> Please enter the number of cores (positive and non-zeros): ");
+            cores = sc.nextInt();
+            if (cores == 0) return Runtime.getRuntime().availableProcessors();
+        } while (cores <= 0);
+        return cores;
     }
+
 
     public void getWelcomeMessage() {
         System.out.println("""
@@ -64,6 +94,11 @@ public class InOutUtil {
                 Please enter the required data:\s""");
     }
 
+    /**
+     * Print the given matrix.
+     *
+     * @param matrix The matrix to print.
+     */
     public void printMatrix(long[][] matrix) {
         int numCols = matrix[0].length, cellWidth = 20;
         String horizontalLine = "+".concat("-".repeat((cellWidth * matrix.length) + 7)).concat("+");
@@ -78,6 +113,12 @@ public class InOutUtil {
         }
     }
 
+    /**
+     * Print the initial and final matrices after multiplication.
+     *
+     * @param matrixInit   The initial matrix.
+     * @param matrixFinal  The final matrix after multiplication.
+     */
     public void printArrays(long[][] matrixInit, long[][] matrixFinal) {
         System.out.println("\n-> The matrix before performing the multiplication using the fibonacci sequence: \n");
         printMatrix(matrixInit);
