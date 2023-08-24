@@ -1,5 +1,7 @@
 package Practica8_FibonacciMatrixMultiplication;
 
+import java.awt.*;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         MatrixMultiplierWithFibonacci multiplier;
@@ -15,8 +17,8 @@ public class Main {
         long minExecutionTime = Math.min(timeWithoutThreads, timeWithThreads);
         long maxExecutionTime = Math.max(timeWithoutThreads, timeWithThreads);
 
-        System.out.println("Execution time without threads: " + timeWithoutThreads);
-        System.out.println("Execution time with threads: " + timeWithThreads);
+        System.out.println("Execution time without threads: " + timeWithoutThreads + " ns");
+        System.out.println("Execution time with threads: " + timeWithThreads + " ns");
         System.out.println(" -> Minimum execution time: " + minExecutionTime + " " +
                 (minExecutionTime == timeWithoutThreads ? "(Without Threads)" : "(With Threads)") + " ns.");
         System.out.println(" -> Difference between two times: " + (maxExecutionTime - minExecutionTime) + " ns.");

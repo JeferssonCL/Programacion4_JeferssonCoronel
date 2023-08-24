@@ -93,7 +93,7 @@ public class InOutUtil {
                 numero = scanner.nextInt();
                 entradaValida = true;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. You must enter a number. \n -->");
+                System.out.println("Invalid input. You must enter a number.");
                 scanner.nextLine();
             }
         } return numero;
