@@ -1,5 +1,6 @@
 package Practica8_FibonacciMatrixMultiplication;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -19,22 +20,19 @@ public class InOutUtil {
         return inOutUtil;
     }
 
-    private int[] requestValuesOfRowsAndColumns(Scanner sc) {
-        int[] nxn = new int[2];
-        System.out.print("-".repeat(60) + "\n-> Please enter the number of rows in the matrix: ");
-        nxn[0] = sc.nextInt();
-        System.out.print("-> Please enter the number of columns in the matrix: ");
-        nxn[1] = sc.nextInt();
-
+    private int requestValuesOfRowsAndColumns() {
+        int nxn;
+        System.out.print("-".repeat(60) + "\n-> Please enter the number of rows and columns in the matrix (nxn): ");
+        nxn = getIntegerValue();
         return nxn;
     }
 
-    private int[] requestValuesOfRange(Scanner sc) {
+    private int[] requestValuesOfRange() {
         int[] rangeOfValues = new int[2];
         System.out.print("-".repeat(60) + "\n-> Please enter the minimum range of random values: ");
-        rangeOfValues[0] = sc.nextInt();
+        rangeOfValues[0] = getIntegerValue();
         System.out.print("-> Please enter the maximum random value range: ");
-        rangeOfValues[1] = sc.nextInt();
+        rangeOfValues[1] = getIntegerValue();
 
         return rangeOfValues;
     }
@@ -45,13 +43,12 @@ public class InOutUtil {
      * @return The number of rows and columns (since they're equal).
      */
     public int getRowAndColumnNumbers() {
-        Scanner sc = new Scanner(System.in);
-        int[] nxn;
+        int nxn;
         while (true) {
-            nxn = requestValuesOfRowsAndColumns(sc);
-            if (nxn[0] == nxn[1] && nxn[1] != 0 & nxn[0] < 6) break;
+            nxn = requestValuesOfRowsAndColumns();
+            if (nxn != 0 & nxn < 6) break;
             else System.out.println("* Mistake! Rows and columns have to be equal, not equal to 0 and less than 6!");
-        } return nxn[1];
+        } return nxn;
     }
 
     /**
@@ -60,10 +57,9 @@ public class InOutUtil {
      * @return The number of CPU cores.
      */
     public int[] getRangeOfRandomItems() {
-        Scanner sc = new Scanner(System.in);
         int[] range;
         while (true) {
-            range = requestValuesOfRange(sc);
+            range = requestValuesOfRange();
             if (range[0] < range[1] && range[0] != 0) break;
             else System.out.println(" * Mistake! The minor rank is greater than the major rank !");
         } return range;
@@ -87,6 +83,21 @@ public class InOutUtil {
         return cores;
     }
 
+    private int getIntegerValue() {
+        Scanner scanner = new Scanner(System.in);
+        int numero = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            try {
+                numero = scanner.nextInt();
+                entradaValida = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. You must enter a number. \n -->");
+                scanner.nextLine();
+            }
+        } return numero;
+    }
 
     public void getWelcomeMessage() {
         System.out.println("""
