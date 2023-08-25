@@ -6,9 +6,9 @@ import java.util.Random;
  * This class performs matrix multiplication using the Fibonacci sequence.
  */
 public class MatrixMultiplierWithFibonacci {
-    private long[][] matrix, fibonacciMatrix;
+    private long[][] matrix;
     private Random random;
-    private int[] rangeOfValues, positions;
+    private int[] rangeOfValues;
     private int nxn, numberCores;
     private long executionTime;
     private final boolean isWithThreads;
@@ -36,11 +36,18 @@ public class MatrixMultiplierWithFibonacci {
 
         assignValuesToVariables(numberCores, nxn, rangeOfValues);
         fillMatrixWithValuesInRange(0, 0);
+        InOutUtil.getInstance().printArray(matrix, "before");
+
+        validateMultiplicationFibonacci();
+
+        InOutUtil.getInstance().printArray(matrix, "after");
+    }
+
+    private void validateMultiplicationFibonacci() throws InterruptedException {
         if (isWithThreads)
             fillNewArrayWithFibonacciUsingThreads();
         else
             fillNewArrayWithFibonacci();
-        InOutUtil.getInstance().printArrays(matrix, fibonacciMatrix);
     }
 
     /**
@@ -55,8 +62,6 @@ public class MatrixMultiplierWithFibonacci {
         this.random = new Random();
         this.numberCores = numberCores;
         this.matrix = new long[nxn][nxn];
-        this.positions = new int[4];
-        this.fibonacciMatrix = new long[nxn][nxn];
         this.rangeOfValues = rangeOfValues;
     }
 
@@ -80,69 +85,6 @@ public class MatrixMultiplierWithFibonacci {
     }
 
     /**
-     * Validates positions for even quantity addition.
-     *
-     * @param currentColumn The current column index.
-     */
-    private void validatePositionsInNotObbValues(int currentColumn) {
-        positions[0] = 0;
-        positions[1] = positions[1] % nxn;
-        positions[2] = currentColumn + 1;
-        positions[3] = currentColumn + 1;
-    }
-
-    /**
-     * Validates positions for odd quantity addition.
-     *
-     * @param currentColumn The current column index.
-     */
-    private void validatePositionsInObbValues(int currentColumn) {
-        positions[3] = currentColumn + 1;
-        positions[1] = positions[1] % nxn;
-    }
-
-    /**
-     * Validates positions and updates thread positions.
-     *
-     * @param quantityToAdd The quantity to add.
-     * @param index         The current thread index.
-     * @param currentColumn The current column index.
-     * @param threads       The array of threads.
-     */
-    private void validatePositions(int quantityToAdd, int index, int currentColumn, MyThread[] threads) {
-        if (quantityToAdd % 2 != 0) {
-            if (positions[1] >= nxn) {
-                if (index != threads.length - 1) validatePositionsInObbValues(currentColumn);
-                else positions[1] = nxn - 1;
-            }
-        } else {
-            if (positions[1] > nxn)
-                if (index != threads.length - 1)
-                    validatePositionsInNotObbValues(currentColumn);
-                else positions[1] = positions[1]++;
-        }
-    }
-
-    /**
-     * Sets thread positions and starts matrix multiplication threads.
-     *
-     * @param threads       The array of threads.
-     * @param quantityToAdd The quantity to add.
-     */
-    private void getPositions(MyThread[] threads, int quantityToAdd) {
-        for (int index = 0; index < threads.length; index++) {
-            int currentRow = positions[1];
-            int currentColumn = positions[3];
-            positions[1] = currentRow + quantityToAdd;
-
-            validatePositions(quantityToAdd, index, currentColumn, threads);
-
-            threads[index] = new MyThread(matrix, fibonacciMatrix, positions, quantityToAdd);
-            threads[index].start();
-        }
-    }
-
-    /**
      * Fills the Fibonacci matrix without using threads.
      */
     private void fillNewArrayWithFibonacci() {
@@ -150,11 +92,12 @@ public class MatrixMultiplierWithFibonacci {
         for (int indexColumn = 0; indexColumn < nxn; indexColumn++) {
             for (int indexRow = 0; indexRow < nxn; indexRow++) {
                 long valueToAdd = FibonacciMultiplier.getInstance().doMultiplicationFibonacci(matrix[indexColumn][indexRow]);
-                fibonacciMatrix[indexColumn][indexRow] = valueToAdd;
+                matrix[indexColumn][indexRow] = valueToAdd;
             }
         }
         long endTime = System.nanoTime();
         executionTime = endTime - startTime;
+
     }
 
     /**
@@ -163,18 +106,10 @@ public class MatrixMultiplierWithFibonacci {
      * @throws InterruptedException if interrupted during thread execution.
      */
     private void fillNewArrayWithFibonacciUsingThreads() throws InterruptedException {
-        int elementsPerThread = (nxn * nxn) / numberCores;
-
-        MyThread[] threads = new MyThread[numberCores];
-        getPositions(threads, elementsPerThread);
-
-        long startTime = System.nanoTime();
-        for (int i = 0; i < numberCores; i++) threads[i].join();
-        long endTime = System.nanoTime();
-        executionTime = endTime - startTime;
+       MyThreadsManager myThreadsManager = new MyThreadsManager(matrix, numberCores);
+       executionTime = myThreadsManager.start();;
     }
 
-    //This is a recursive method
     /**
      * Fills the Fibonacci matrix using recursion.
      *
@@ -184,7 +119,7 @@ public class MatrixMultiplierWithFibonacci {
     private void fillNewArrayWithFibonacci(int indexColumn, int indexRow) {
         if (indexColumn < nxn && indexRow < nxn) {
             long valueToAdd = FibonacciMultiplier.getInstance().doMultiplicationFibonacci(matrix[indexColumn][indexRow]);
-            fibonacciMatrix[indexColumn][indexRow] = valueToAdd;
+            matrix[indexColumn][indexRow] = valueToAdd;
             indexRow++;
             fillNewArrayWithFibonacci(indexColumn, indexRow);
         } else if (indexColumn < nxn && indexRow == nxn) {

@@ -46,7 +46,7 @@ public class InOutUtil {
         int nxn;
         while (true) {
             nxn = requestValuesOfRowsAndColumns();
-            if (nxn != 0 & nxn < 6) break;
+            if (nxn != 0) break;
             else System.out.println("* Mistake! Rows and columns have to be equal, not equal to 0 and less than 6!");
         } return nxn;
     }
@@ -83,17 +83,20 @@ public class InOutUtil {
         return cores;
     }
 
+    /**
+     * A utility method for obtaining a positive integer input from the user.
+     */
     private int getIntegerValue() {
         Scanner scanner = new Scanner(System.in);
-        int numero = 0;
-        boolean entradaValida = false;
+        int numero = 0, entradaValida = 0;
 
-        while (!entradaValida) {
+        while (entradaValida == 0) {
             try {
                 numero = scanner.nextInt();
-                entradaValida = true;
+                if (numero > 0) entradaValida = 1;
+                else System.out.print("Invalid input. You must enter a positive integer greater than zero: ");
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. You must enter a number.");
+                System.out.print("Invalid input. You must enter a number: ");
                 scanner.nextLine();
             }
         } return numero;
@@ -128,13 +131,10 @@ public class InOutUtil {
     /**
      * Print the initial and final matrices after multiplication.
      *
-     * @param matrixInit   The initial matrix.
-     * @param matrixFinal  The final matrix after multiplication.
+     * @param matrix The initial matrix.
      */
-    public void printArrays(long[][] matrixInit, long[][] matrixFinal) {
-        System.out.println("\n-> The matrix before performing the multiplication using the fibonacci sequence: \n");
-        printMatrix(matrixInit);
-        System.out.println("\n-> The matrix after performing the multiplication using the fibonacci sequence: \n");
-        printMatrix(matrixFinal);
+    public void printArray(long[][] matrix, String time) {
+        System.out.println("\n-> The matrix " + time + " performing the multiplication using the fibonacci sequence: \n");
+        printMatrix(matrix);
     }
 }

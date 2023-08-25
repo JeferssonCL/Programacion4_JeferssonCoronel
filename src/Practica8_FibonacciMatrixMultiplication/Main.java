@@ -1,6 +1,5 @@
 package Practica8_FibonacciMatrixMultiplication;
 
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
