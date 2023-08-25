@@ -1,5 +1,6 @@
 package Practica8_FibonacciMatrixMultiplication;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -19,22 +20,19 @@ public class InOutUtil {
         return inOutUtil;
     }
 
-    private int[] requestValuesOfRowsAndColumns(Scanner sc) {
-        int[] nxn = new int[2];
-        System.out.print("-".repeat(60) + "\n-> Please enter the number of rows in the matrix: ");
-        nxn[0] = sc.nextInt();
-        System.out.print("-> Please enter the number of columns in the matrix: ");
-        nxn[1] = sc.nextInt();
-
+    private int requestValuesOfRowsAndColumns() {
+        int nxn;
+        System.out.print("-".repeat(60) + "\n-> Please enter the number of rows and columns in the matrix (nxn): ");
+        nxn = getIntegerValue();
         return nxn;
     }
 
-    private int[] requestValuesOfRange(Scanner sc) {
+    private int[] requestValuesOfRange() {
         int[] rangeOfValues = new int[2];
         System.out.print("-".repeat(60) + "\n-> Please enter the minimum range of random values: ");
-        rangeOfValues[0] = sc.nextInt();
+        rangeOfValues[0] = getIntegerValue();
         System.out.print("-> Please enter the maximum random value range: ");
-        rangeOfValues[1] = sc.nextInt();
+        rangeOfValues[1] = getIntegerValue();
 
         return rangeOfValues;
     }
@@ -45,13 +43,12 @@ public class InOutUtil {
      * @return The number of rows and columns (since they're equal).
      */
     public int getRowAndColumnNumbers() {
-        Scanner sc = new Scanner(System.in);
-        int[] nxn;
+        int nxn;
         while (true) {
-            nxn = requestValuesOfRowsAndColumns(sc);
-            if (nxn[0] == nxn[1] && nxn[1] != 0) break;
-            else System.out.println(" * Mistake! Rows and columns have to be equal to and not equal to 0 !");
-        } return nxn[1];
+            nxn = requestValuesOfRowsAndColumns();
+            if (nxn != 0) break;
+            else System.out.println("* Mistake! Rows and columns have to be equal, not equal to 0 and less than 6!");
+        } return nxn;
     }
 
     /**
@@ -60,10 +57,9 @@ public class InOutUtil {
      * @return The number of CPU cores.
      */
     public int[] getRangeOfRandomItems() {
-        Scanner sc = new Scanner(System.in);
         int[] range;
         while (true) {
-            range = requestValuesOfRange(sc);
+            range = requestValuesOfRange();
             if (range[0] < range[1] && range[0] != 0) break;
             else System.out.println(" * Mistake! The minor rank is greater than the major rank !");
         } return range;
@@ -80,12 +76,31 @@ public class InOutUtil {
 
         do {
             System.out.print("-".repeat(60) + "\n-> Please enter the number of cores (positive and non-zeros): ");
-            cores = sc.nextInt();
-            if (cores == 0) return Runtime.getRuntime().availableProcessors();
+            try {
+                cores = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {cores = Runtime.getRuntime().availableProcessors();}
         } while (cores <= 0);
         return cores;
     }
 
+    /**
+     * A utility method for obtaining a positive integer input from the user.
+     */
+    private int getIntegerValue() {
+        Scanner scanner = new Scanner(System.in);
+        int numero = 0, entradaValida = 0;
+
+        while (entradaValida == 0) {
+            try {
+                numero = scanner.nextInt();
+                if (numero > 0) entradaValida = 1;
+                else System.out.print("Invalid input. You must enter a positive integer greater than zero: ");
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input. You must enter a number: ");
+                scanner.nextLine();
+            }
+        } return numero;
+    }
 
     public void getWelcomeMessage() {
         System.out.println("""
@@ -116,13 +131,10 @@ public class InOutUtil {
     /**
      * Print the initial and final matrices after multiplication.
      *
-     * @param matrixInit   The initial matrix.
-     * @param matrixFinal  The final matrix after multiplication.
+     * @param matrix The initial matrix.
      */
-    public void printArrays(long[][] matrixInit, long[][] matrixFinal) {
-        System.out.println("\n-> The matrix before performing the multiplication using the fibonacci sequence: \n");
-        printMatrix(matrixInit);
-        System.out.println("\n-> The matrix after performing the multiplication using the fibonacci sequence: \n");
-        printMatrix(matrixFinal);
+    public void printArray(long[][] matrix, String time) {
+        System.out.println("\n-> The matrix " + time + " performing the multiplication using the fibonacci sequence: \n");
+        printMatrix(matrix);
     }
 }
